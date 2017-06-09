@@ -10,7 +10,15 @@ import datetime
 
 define("port", default=8000, help="run on the given port", type=int)
 
-class SignUpHnadler(tornado.web.RequestHandler):
+class HomePageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('index.html')
+
+class FormPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('forms_wizard.html')
+
+class SignUpHandler(tornado.web.RequestHandler):
     def post(self):
         user = dict(
             fname = self.get_argument('fname', ''),
@@ -24,8 +32,8 @@ class SignUpHnadler(tornado.web.RequestHandler):
             kin_name = self.get_argument('kin_name', ''),
             kin_relationship = self.get_argument('kin_relationship', ''),
             kin_phone = self.get_argument('kin_phone', ''),
-            outdoor = self.get_argument('outdoor', ''),
-            indoor = self.get_argument('indoor', ''),
+            # outdoor = self.get_argument('outdoor', ''),
+            # indoor = self.get_argument('indoor', ''),
             interests = self.get_argument('indoor', ''),
             date = datetime.datetime.now().strftime('%m/%d/%Y'),
         )
@@ -70,33 +78,49 @@ class CheckOutHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0,'message':'not checked in'})
 
-class DemoHandler(tornado.web.RequestHandler):
-    def get(self):
-        argument = self.get_argument('key', 'default_value')
-        self.write(argument)
-
-class PatternHandler(tornado.web.RequestHandler):
-    def get(self, input_text):
-        col = self.application.db['my_collection']
-        doc = col.find_one({'key': input_text})
+class FindUserHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        col = self.application.db['spolunteer']
+        doc = col.find_one({'email': email[0]})
         if doc:
-            del doc['_id']
-            self.write(doc)
+            self.write({'status':1, 'user':doc})
         else:
-            self.set_status(404)
+            self.write({'status':0, 'message':'no such user'})
 
-    def post(self, input_text):
-        new_value = self.get_argument('value')
-        col = self.application.db['my_collection']
-        doc = col.find_one({'key': input_text})
-        if doc:
-            doc['value'] = new_value
-            col.save(doc)
-        else:
-            doc = {'key': input_text, 'value': new_value}
-            col.insert(doc)
-        del word_doc["_id"]
-        self.write(doc)
+class EditUserHandler(tornado.web.RequestHandler):
+    def post(self):
+        col = self.application.db['daily']
+
+
+
+# class DemoHandler(tornado.web.RequestHandler):
+#     def get(self):
+#         argument = self.get_argument('key', 'default_value')
+#         self.write(argument)
+#
+# class PatternHandler(tornado.web.RequestHandler):
+#     def get(self, input_text):
+#         col = self.application.db['my_collection']
+#         doc = col.find_one({'key': input_text})
+#         if doc:
+#             del doc['_id']
+#             self.write(doc)
+#         else:
+#             self.set_status(404)
+#
+#     def post(self, input_text):
+#         new_value = self.get_argument('value')
+#         col = self.application.db['my_collection']
+#         doc = col.find_one({'key': input_text})
+#         if doc:
+#             doc['value'] = new_value
+#             col.save(doc)
+#         else:
+#             doc = {'key': input_text, 'value': new_value}
+#             col.insert(doc)
+#         del word_doc["_id"]
+#         self.write(doc)
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -104,17 +128,23 @@ class Application(tornado.web.Application):
         self.db = client['cfg17']
 
         handlers = [
-            (r"/signup", SignUpHnadler),
+            (r"/", HomePageHandler),
+            (r"/forms_wizard", FormPageHandler),
+            (r"/signup", SignUpHandler),
             (r"/checkin", CheckInHandler),
             (r"/checkout", CheckOutHandler),
-            (r"/demo", DemoHandler),
-            (r"/pattern(\w+)", PatternHandler),
-            (r"/files/(.*)", tornado.web.StaticFileHandler,
-             {"path": os.path.join(os.path.dirname(__file__), "files")}),
+            (r"/assets/(.*)", tornado.web.StaticFileHandler,
+             {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
+            (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
+             {"path": os.path.join(os.path.dirname(__file__), "frontend/bower_components")}),
+            # (r"/demo", DemoHandler),
+            # (r"/pattern(\w+)", PatternHandler),
+            # (r"/files/(.*)", tornado.web.StaticFileHandler,
+            #  {"path": os.path.join(os.path.dirname(__file__), "files")}),
         ]
 
         settings = dict(
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            template_path=os.path.join(os.path.dirname(__file__), "frontend"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             debug = True,
         )
