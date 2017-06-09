@@ -283,6 +283,24 @@
         {
             currentStep.addClass("done").removeClass("error");
             wizard.triggerHandler("finished", [state.currentIndex]);
+            //console.log("FINISHED");
+            //console.log("First name: "+$("#fname").val());
+
+            //Capture data
+            fname = $("#fname").val();
+            lname = $("#lname").val();
+            known = $("#known").val();
+            address = $("address").val();
+            age = $("#age").val();
+            gender = $("#gender").val();
+            phone = $("#phone").val();
+            email = $("#email").val();
+            kin_name = $("#kin_name").val();
+            kin_relation = $("#kin_relationship").val();
+            kin_phone = $("#kin_phone").val();
+            //activities = $("#activities").val();
+            //interests = $("#interests").val();
+            sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relationship, kin_phone);
         }
         else
         {
