@@ -1,5 +1,5 @@
 function sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relationship, kin_phone){
-	var data = "email="+username+"&pass="+password;
+	//var data = "email="+username+"&pass="+password;
 
 	$.ajax({
 	    url : "/forms_wizard",
