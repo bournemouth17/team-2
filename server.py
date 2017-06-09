@@ -19,6 +19,9 @@ class FormPageHandler(tornado.web.RequestHandler):
         self.render('forms_wizard.html')
 
 class SignUpHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('forms_wizard.html')
+
     def post(self):
         user = dict(
             fname = self.get_argument('fname', ''),
