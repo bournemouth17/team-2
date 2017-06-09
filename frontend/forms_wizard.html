@@ -71,25 +71,25 @@
                                 <div class="uk-grid">
                                     <div class="uk-width-medium-1-1 parsley-row">
                                         <label for="wizard_fullname">First Name<span class="req">*</span></label>
-                                        <input type="text" name="wizard_fullname" id="wizard_firstname" required class="md-input" />
+                                        <input type="text" name="fname" id="fname" required class="md-input" />
                                     </div>
                                 </div>
                                 <div class="uk-grid">
                                     <div class="uk-width-medium-1-1 parsley-row">
                                         <label for="wizard_fullname">Last Name<span class="req">*</span></label>
-                                        <input type="text" name="wizard_fullname" id="wizard_lastname" required class="md-input" />
+                                        <input type="text" name="lname" id="lname" required class="md-input" />
                                     </div>
                                 </div>
                                 <div class="uk-grid">
                                     <div class="uk-width-medium-1-1 parsley-row">
                                         <label for="wizard_fullname">Alias/Preferred name<span class="req">*</span></label>
-                                        <input type="text" name="wizard_fullname" id="wizard_alias" class="md-input" />
+                                        <input type="text" name="known" id="known" class="md-input" />
                                     </div>
                                 </div>
                                 <div class="uk-grid">
                                     <div class="uk-width-medium-1-1 parsley-row">
                                         <label for="wizard_address">Home Address<span class="req">*</span></label>
-                                        <input type="text" name="wizard_address" id="wizard_address" required class="md-input" />
+                                        <input type="text" name="address" id="address" required class="md-input" />
                                     </div>
                                 </div>
                                 <div class="uk-grid" data-uk-grid-margin>
@@ -99,10 +99,10 @@
                                     </div>-->
                                     <div class="uk-width-medium-1-2 parsley-row">
                                         <label for="wizard_address">Age<span class="req">*</span></label>
-                                        <input type="number" name="wizard_age" id="wizard_address" required class="md-input" />
+                                        <input type="number" name="age" id="age" required class="md-input" />
                                     </div>
                                     <div class="uk-width-medium-1-2 parsley-row">
-                                        <select id="wizard_birth_place" name="wizard_birth_place" required>
+                                        <select id="gender" name="gender" required>
                                             <option value="">Gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
@@ -118,7 +118,7 @@
                                                 <i class="material-icons">&#xE0CD;</i>
                                             </span>
                                             <label for="wizard_phone">Phone Number</label>
-                                            <input type="text" class="md-input" name="wizard_phone" id="wizard_phone" />
+                                            <input type="text" class="md-input" name="phone" id="phone" />
                                         </div>
                                     </div>
                                     <div class=" parsley-row">
@@ -127,62 +127,50 @@
                                                 <i class="material-icons">&#xE0BE;</i>
                                             </span>
                                             <label for="wizard_email">Email</label>
-                                            <input type="text" class="md-input" name="wizard_email" id="wizard_email" required />
+                                            <input type="text" class="md-input" name="email" id="email" required />
                                         </div>
                                     </div>
                                 </div>
                             </section>
 
                             <!-- second section -->
-                            <h3>Vehicle information</h3>
+                            <h3>Other details</h3>
                             <section>
                                 <h2 class="heading_a">
                                     Other details
-                                    <span class="sub-heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                                    <span class="sub-heading">Please give us some extra info both for us and in case of emergency.</span>
                                 </h2>
                                 <hr class="md-hr"/>
-                                <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-4" data-uk-grid-margin>
+                                <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-3" data-uk-grid-margin>
                                     <div class="parsley-row">
-                                        <label for="wizard_vehicle_title_number">Title Number<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_title_number" id="wizard_vehicle_title_number" required class="md-input" />
+                                        <label for="wizard_vehicle_title_number">Name of next of kin<span class="req">*</span></label>
+                                        <input type="text" name="kin_name" id="kin_name" required class="md-input" />
                                     </div>
                                     <div class="parsley-row">
-                                        <label for="wizard_vehicle_vin">VIN<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_vin" id="wizard_vehicle_vin" required class="md-input" />
+                                        <label for="wizard_vehicle_vin">Relationship<span class="req">*</span></label>
+                                        <input type="text" name="kin_relationship" id="kin_relationship" required class="md-input" />
                                     </div>
                                     <div class="parsley-row">
-                                        <label for="wizard_vehicle_plate_number">Current Plate Number<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_plate_number" id="wizard_vehicle_plate_number" required class="md-input" />
-                                    </div>
-                                    <div class="parsley-row">
-                                        <label for="wizard_vehicle_expiration">Expiration Date<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_expiration" id="wizard_vehicle_expiration" required class="md-input" data-parsley-americandate data-parsley-americandate-message="This value should be a valid date (MM.DD.YYYY)" data-uk-datepicker="{format:'MM.DD.YYYY'}" />
+                                        <label for="wizard_vehicle_plate_number">Phone number<span class="req">*</span></label>
+                                        <input type="text" name="wizard_vehicle_plate_number" id="kin_phone" required class="md-input" />
                                     </div>
                                 </div>
-                                <div class="uk-grid uk-grid-width-large-1-3 uk-grid-width-xlarge-1-6" data-uk-grid-margin>
+                                <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2" data-uk-grid-margin>
                                     <div class="parsley-row">
-                                        <label for="wizard_vehicle_year">Registration Year</label>
-                                        <input type="text" name="wizard_vehicle_year" id="wizard_vehicle_year" class="md-input" data-uk-datepicker="{format:'MM.YYYY'}" />
+                                        <select id="activities" name="activities" required>
+                                            <option value="">What do you prefer</option>
+                                                <option value="male">Outdoor activities</option>
+                                                <option value="female">Indoor activities</option>
+                                        </select>
                                     </div>
                                     <div class="parsley-row">
-                                        <label for="wizard_vehicle_make">Make</label>
-                                        <input type="text" name="wizard_vehicle_make" id="wizard_vehicle_make" class="md-input" />
-                                    </div>
-                                    <div class="parsley-row">
-                                        <label for="wizard_vehicle_model">Model<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_model" id="wizard_vehicle_model" required class="md-input" />
-                                    </div>
-                                    <div class="parsley-row">
-                                        <label for="wizard_vehicle_body">Body Type<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_body" id="wizard_vehicle_body" required class="md-input" />
-                                    </div>
-                                    <div class="parsley-row">
-                                        <label for="wizard_vehicle_axles">Axles</label>
-                                        <input type="text" name="wizard_vehicle_axles" id="wizard_vehicle_axles" class="md-input" />
-                                    </div>
-                                    <div class="parsley-row">
-                                        <label for="wizard_vehicle_fuel">Fuel<span class="req">*</span></label>
-                                        <input type="text" name="wizard_vehicle_fuel" id="wizard_vehicle_fuel" required class="md-input" />
+                                        <select id="gender" name="interests" required>
+                                            <option value="">Please select your interests from the options below</option>
+                                                <option value="heavy_lifting">Heavy lifting</option>
+                                                <option value="data_entry">Data Entry</option>
+                                                <option value="translating">Translating</option>
+                                                <option value="packing_boxes">Packing boxes</option>
+                                        </select>
                                     </div>
                                 </div>
                             </section>
@@ -191,7 +179,7 @@
                             <h3>Sign Up complete</h3>
                             <section>
                                 <h2 class="heading_a">
-                                    Additional information
+                                    All done
                                     <span class="sub-heading">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
                                 </h2>
                                 <hr class="md-hr"/>
@@ -291,7 +279,7 @@
     // load extra validators
     altair_forms.parsley_extra_validators();
     </script>
-    <script src="bower_components/parsleyjs/dist/parsley.min.js"></script>
+    <!--<script src="bower_components/parsleyjs/dist/parsley.min.js"></script>-->
     <!-- jquery steps -->
     <script src="assets/js/custom/wizard_steps.min.js"></script>
 
