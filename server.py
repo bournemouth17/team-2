@@ -129,8 +129,8 @@ class Application(tornado.web.Application):
 
         handlers = [
             (r"/", HomePageHandler),
-            (r"/forms_wizard", FormPageHandler),
-            (r"/signup", SignUpHandler),
+            (r"/forms_wizard", SignUpHandler),
+            # (r"/signup", FormPageHandler),
             (r"/checkin", CheckInHandler),
             (r"/checkout", CheckOutHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
