@@ -2,7 +2,7 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 	var data = "email="+username+"&pass="+password;
 
 	$.ajax({
-	    url : "/form_wizard",
+	    url : "/forms_wizard",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
