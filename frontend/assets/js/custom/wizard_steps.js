@@ -290,7 +290,7 @@
             fname = $("#fname").val();
             lname = $("#lname").val();
             known = $("#known").val();
-            address = $("address").val();
+            address = $("#address").val();
             age = $("#age").val();
             gender = $("#gender").val();
             phone = $("#phone").val();
