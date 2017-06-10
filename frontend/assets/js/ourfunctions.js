@@ -53,7 +53,7 @@ function load_user(){
 	    		$("#edit_known").val(data['user'].known);
 	    		$("#edit_kin_name").val(data['user'].kin_name);
 	    		$("#edit_kin_relationship").val(data['user'].kin_relationship);
-	    		$("edit_kin_phone").val(data['user'].kin_phone);
+	    		$("#edit_kin_phone").val(data['user'].kin_phone);
 	    		
 
 	    		//Show the div now
