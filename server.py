@@ -43,7 +43,7 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
             if doc['stage'] == 5:
                 self.write({'status':1})
             else:
-                self.self.write({'status':0, 'message': 'not in operation'})
+                self.write({'status':0, 'message': 'not in operation'})
         self.write({'status':0, 'message': 'not checked in'})
 
 class MapSocketHandler(tornado.websocket.WebSocketHandler):
@@ -85,7 +85,7 @@ class GpsHandler(tornado.web.RequestHandler):
         col = self.application.db['tracking']
         col2 = self.application.db['spoluneer']
         doc = col.find_one({'email': email})
-        doc2 = col.find_one({'email': email})
+        doc2 = col2.find_one({'email': email})
         print email
         print lat
         print lon
