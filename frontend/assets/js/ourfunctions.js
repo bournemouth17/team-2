@@ -93,7 +93,7 @@ function edit_user(){
 	console.log(data);
 
 	$.ajax({
-	    url : "/forms_wizard",
+	    url : "/userinfo",
 	    type: "PUT",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
