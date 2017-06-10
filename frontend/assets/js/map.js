@@ -6,7 +6,7 @@ ws.onopen = function(){
     // ws.send("Sent message ok");
 };
 
-
+ var currlist = {};
 
   var mymap = L.map('mapid').setView([50.74299711383331, -1.830132394788736], 13);
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -23,8 +23,12 @@ ws.onopen = function(){
         //console.log(data_json['results'].length);
         for (i=0; i< data_json['results'].length; i++){
               // console.log(data_json['results'][i]);
+              if (data_json['results'][i]['phone'] in currlist){
+                  mymap.removeLayer(currlist[data_json['results'][i]['phone']]);
+              };
               var marker = L.marker(data_json['results'][i]['coordinates']).addTo(mymap);
-              marker.bindPopup("<strong>Name: </strong>"  + data_json['results'][i]['owner'] + " <br><strong>Telephone:</strong> "+data_json['results'][i]['phone']).openPopup();
+              marker.bindPopup("<br><strong>Telephone:</strong> "+data_json['results'][i]['phone']).openPopup();
+              currlist[data_json['results'][i]['phone']] = marker;
         }
     }
     else{
