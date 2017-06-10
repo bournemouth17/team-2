@@ -225,7 +225,7 @@ class TaskStatusHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', '')
         status = self.get_argument('status', '')
         col = self.application.db['daily']
-        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
+        doc = col.find({'email': email}).sort('_id',-1).limit(1)[0]
         if doc:
             if status == 'start':
                 doc['stage'] = 5
