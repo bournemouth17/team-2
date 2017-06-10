@@ -123,6 +123,10 @@ class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
 
+class TeamsPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('teams.html')
+
 class CheckinPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('plugins_datatables.html')
@@ -377,6 +381,7 @@ class Application(tornado.web.Application):
              (r"/authtracker", AuthTrackerHandler),
              (r"/map",MapSocketHandler),
              (r"/rtmap",RTTrackingHandler),
+             (r"/teams",TeamsPageHandler),
             # (r"/demo", DemoHandler),
             # (r"/pattern(\w+)", PatternHandler),
             # (r"/files/(.*)", tornado.web.StaticFileHandler,
