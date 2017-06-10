@@ -43,6 +43,22 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
                 self.self.write({'status':0, 'message': 'not in operation'})
         self.write({'status':0, 'message': 'not checked in'})
 
+class GpsHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        lat = self.get_argument('lat', ''),
+        lon = self.get_argument('lon', ''),
+        col = self.application.db['tracking']
+        doc = col.find_one({'email': email})
+        if doc:
+            doc['lat'] = lat
+            doc['lon'] = lon
+            col.save(doc)
+        else:
+            doc = {'email': email, 'lat': lat, 'lon': lon}
+            col.insert(doc)
+        self.write({'status':1})
+
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
@@ -198,6 +214,7 @@ class Application(tornado.web.Application):
             # (r"/signup", FormPageHandler),
             (r"/checkin", CheckInHandler),
             (r"/checkout", CheckOutHandler),
+            (r"/gps", GpsHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
