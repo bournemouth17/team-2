@@ -29,6 +29,9 @@
         <script type="text/javascript" src="bower_components/matchMedia/matchMedia.addListener.js"></script>
     <![endif]-->
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 </head>
 <body class="top_menu app_theme_h">
     <!-- main header -->
@@ -88,8 +91,8 @@
                                 </div>
                                 <div class="uk-grid">
                                     <div class="uk-width-medium-1-1 parsley-row">
-                                        <label for="wizard_address">Home Address<span class="req">*</span></label>
-                                        <input type="text" name="address" id="address" required class="md-input" />
+                                        <label for="wizard_address">Home Address</label>
+                                        <input type="text" name="address" id="address" class="md-input" />
                                     </div>
                                 </div>
                                 <div class="uk-grid" data-uk-grid-margin>
@@ -158,30 +161,30 @@
                                     <div class="uk-width-medium-1-2 parsley-row">
                                         <label class="uk-form-label">Outdoor work<span class="req">*</span></label>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="outdoor_preferred" id="outdoor_preferred" required class="wizard-icheck" value="Outdoor_Preferred" />
+                                            <input type="radio" name="outdoor"  required class="wizard-icheck" value="Preferred" />
                                             <label for="preferred" class="inline-label">Preferred</label>
                                         </span>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="outdoor_yes" id="" class="wizard-icheck" value="Outdoor_Yes" />
+                                            <input type="radio" name="outdoor"  class="wizard-icheck" value="Yes" />
                                             <label for="outdoor_yes" class="inline-label">Yes</label>
                                         </span>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="outdoor_no" id="" class="wizard-icheck" value="Outdoor_No" />
+                                            <input type="radio" name="outdoor"  class="wizard-icheck" value="No" />
                                             <label for="outdoor_no" class="inline-label">No</label>
                                         </span>
                                     </div>
                                     <div class="uk-width-medium-1-2 parsley-row">
                                         <label class="uk-form-label">Indoor work<span class="req">*</span></label>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="indoor_preferred" id="wizard_status_married" required class="wizard-icheck" value="married" />
+                                            <input type="radio" name="indoor"  required class="wizard-icheck" value="Preferred" />
                                             <label for="indoor_preferred" class="inline-label">Preferred</label>
                                         </span>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="indoor_yes" id="indoor_yes" class="wizard-icheck" value="Indoor_Yes" />
+                                            <input type="radio" name="indoor" id="indoor_yes" class="wizard-icheck" value="Yes" />
                                             <label for="indoor_yes" class="inline-label">Yes</label>
                                         </span>
                                         <span class="icheck-inline">
-                                            <input type="radio" name="indoor_no" id="indoor_no" class="wizard-icheck" value="Indoor_No" />
+                                            <input type="radio" name="indoor" id="indoor_no" class="wizard-icheck" value="No" />
                                             <label for="indoor_no" class="inline-label">No</label>
                                         </span>
                                     </div>
@@ -193,12 +196,26 @@
                                         </select>
                                     </div>
                                     <div class="parsley-row">
-                                        <select id="gender" name="interests" required>
+                                        <select class="interests" name="interests[]" required multiple="multiple">
                                             <option value="">Please select your interests from the options below</option>
-                                                <option value="heavy_lifting">Heavy lifting</option>
-                                                <option value="data_entry">Data Entry</option>
-                                                <option value="translating">Translating</option>
-                                                <option value="packing_boxes">Packing boxes</option>
+                                                <option value="Data Entry">Data Entry</option>
+                                                <option value="Answering Phones/Taking Messages">Answering Phones/Taking Messages</option>
+                                                <option value="Managing Staff/Volunteer Rotas">Managing Staff/Volunteer Rotas</option>
+                                                <option value="Translating">Translating</option>
+                                                <option value="Reception Duties">Reception Duties</option>
+                                                <option value="Information Dissemination">Information Dissemination</option>
+                                                <option value="Information Gathering">Information Gathering</option>
+                                                <option value="Mapping Routes">Mapping Routes</option>
+                                                <option value="Transporting Supplies/Equipment">Transporting Supplies/Equipment</option>
+                                                <option value="Loading/Unloading Vehicles">Loading/Unloading Vehicles</option>
+                                                <option value="Packing Boxes">Packing Boxes</option>
+                                                <option value="Distributing Supplies">Distributing Supplies</option>
+                                                <option value="Making Refreshments">Making Refreshments</option>
+                                                <option value="Staffing Feeding Stations for Responders">Staffing Feeding Stations for Responders</option>                                             
+                                                <option value="Cleaning Kit and Equipment">Cleaning Kit and Equipment</option>
+                                                <option value="Debris Clean Up">Debris Clean Up</option>
+                                                <option value="Helping with Sandbags">Helping with Sandbags</option>
+                                                <option value="Assisting Other Agencies as Required">Assisting Other Agencies as Required</option>
                                         </select>
                                     </div>
                                 </div>
@@ -229,6 +246,10 @@
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(wf, s);
         })();
+    </script>
+
+    <script type="text/javascript">
+        $(".interests").select2();
     </script>
 
     <!-- common functions -->
