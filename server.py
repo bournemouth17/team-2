@@ -95,6 +95,8 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', '')
         col = self.application.db['spolunteer']
         doc = col.find_one({'email': email})
+        print email
+        print doc
         if doc:
             del doc['_id']
             self.write({'status':1, 'user':doc})
