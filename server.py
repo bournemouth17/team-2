@@ -79,6 +79,30 @@ class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
 
+class CheckinPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('plugins_datatables.html')
+
+class CheckoutPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('check_out.html')
+
+class UserInfoPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('user_info.html')
+
+    def post(self):
+        email = self.get_argument('email', '')
+        col = self.application.db['spolunteer']
+        doc = col.find_one({'email': email})
+        print email
+        print doc
+        if doc:
+            del doc['_id']
+            self.write({'status':1, 'user':doc})
+        else:
+            self.write({'status':0, 'message':'no such user'})
+
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('forms_wizard.html')
@@ -147,16 +171,6 @@ class CheckOutHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0,'message':'not checked in'})
 
-
-class GetUserDetailsHandler(tornado.web.RequestHandler):
-    def post(self):
-        email = self.get_argument('email', '')
-        col = self.application.db['spolunteer']
-        doc = col.find_one({'email': email})
-        if doc:
-            self.write({'status':1, 'user':doc})
-        else:
-            self.write({'status':0, 'message':'no such user'})
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
     def post(self):
@@ -227,9 +241,12 @@ class Application(tornado.web.Application):
             (r"/", HomePageHandler),
             (r"/forms_wizard", SignUpHandler),
             # (r"/signup", FormPageHandler),
-            (r"/checkin", CheckInHandler),
-            (r"/checkout", CheckOutHandler),
+            (r"/checkin", CheckinPageHandler),
+            (r"/checkout", CheckoutPageHandler),
+            (r"/userinfo", UserInfoPageHandler),
             (r"/gps", GpsHandler),
+            # (r"/volunteers", ManageVolunteersPageHandler),
+            (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
