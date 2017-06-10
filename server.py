@@ -212,6 +212,22 @@ class SignUpHandler(tornado.web.RequestHandler):
             col.insert(user)
             self.write({'status':1})
 
+class TaskStatusHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', '')
+        status = self.get_argument('status', '')
+        col = self.application.db['daily']
+        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
+        if doc:
+            if status == 'start':
+                doc['stage'] = 5
+            else:
+                doc['stage'] = 4
+            col.save(doc)
+            self.write({'status':1})
+        else:
+            self.write({'status':0,'message':'unavailable'})
+
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
     def post(self):
@@ -288,6 +304,7 @@ class Application(tornado.web.Application):
             (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
             (r"/useredit", EditUserInfoHandler),
+            (r"/hold", TaskStatusHandler),
             # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
