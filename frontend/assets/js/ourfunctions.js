@@ -30,7 +30,7 @@ function load_user(){
 	email_add = $("#email").val();
 	data = "email="+email_add;
 
-	console.log("REACHED HERE!");
+	//console.log("REACHED HERE!");
 
 	$.ajax({
 	    url : "/userinfo",
@@ -53,6 +53,7 @@ function load_user(){
 	    		$("#edit_known").val(data['user'].known);
 	    		$("#edit_kin_name").val(data['user'].kin_name);
 	    		$("#edit_kin_relationship").val(data['user'].kin_relationship);
+	    		$("#edit_kin_phone").val(data['user'].kin_phone);
 	    		
 
 	    		//Show the div now
@@ -71,6 +72,7 @@ function load_user(){
 }
 
 function edit_user(){
+	console.log("REACHED HERE!!!");
 	//Capture data
     fname = $("#edit_fname").val();
     lname = $("#edit_lname").val();
@@ -93,8 +95,8 @@ function edit_user(){
 	console.log(data);
 
 	$.ajax({
-	    url : "/userinfo",
-	    type: "PUT",
+	    url : "/useredit",
+	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
