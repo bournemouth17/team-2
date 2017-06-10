@@ -41,7 +41,7 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
                 self.write({'status':1})
             else:
                 self.self.write({'status':0, 'message': 'not in operation'})
-        self.self.write({'status':0, 'message': 'not checked in'})
+        self.write({'status':0, 'message': 'not checked in'})
 
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
