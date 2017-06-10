@@ -35,8 +35,8 @@ class SignUpHandler(tornado.web.RequestHandler):
             kin_name = self.get_argument('kin_name', ''),
             kin_relationship = self.get_argument('kin_relationship', ''),
             kin_phone = self.get_argument('kin_phone', ''),
-            # outdoor = self.get_argument('outdoor', ''),
-            # indoor = self.get_argument('indoor', ''),
+            outdoor = self.get_argument('outdoor', ''),
+            indoor = self.get_argument('indoor', ''),
             interests = self.get_argument('indoor', ''),
             date = datetime.datetime.now().strftime('%m/%d/%Y'),
         )
@@ -81,7 +81,9 @@ class CheckOutHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0,'message':'not checked in'})
 
-class FindUserHandler(tornado.web.RequestHandler):
+
+
+class GetUserDetailsHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', ''),
         col = self.application.db['spolunteer']
@@ -91,9 +93,22 @@ class FindUserHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0, 'message':'no such user'})
 
+class GetUserActivityHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        col_1 = self.application.db['spolunteer']
+        col_2 = self.application.db['daily']
+        doc_1 = col_1.find_one({'email': email[0]})
+        doc_2 = col_2.find_one({'email': email[0]})
+        if doc:
+            self.write({'status':1, 'user':doc})
+        else:
+            self.write({'status':0, 'message':'no such user'})
+
 class EditUserHandler(tornado.web.RequestHandler):
     def post(self):
         col = self.application.db['daily']
+
 
 
 
