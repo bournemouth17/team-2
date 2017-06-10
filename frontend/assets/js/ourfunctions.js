@@ -50,6 +50,7 @@ function load_user(){
 	    		$("#edit_age").val(data['user'].age);
 	    		$("#edit_email").val(data['user'].email);
 	    		$("#edit_phone").val(data['user'].phone);
+	    		$("#edit_gender").val(data['user'].gender);
 	    		$("#edit_known").val(data['user'].known);
 	    		$("#edit_kin_name").val(data['user'].kin_name);
 	    		$("#edit_kin_relationship").val(data['user'].kin_relationship);
