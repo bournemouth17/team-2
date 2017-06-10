@@ -55,8 +55,10 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
         response = col_1.find()
         results = []
         for item in response:
+            print item['email']
             active = col_2.find({'email':item['email'],'stage': { '$ne' : 0 }})
             res = col_3.find_one({'email': item['email']})
+            print res
             if active:
                 results.append({
                     'coordinates':[item['lat'],item['lon']],
