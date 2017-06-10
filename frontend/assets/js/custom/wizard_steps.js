@@ -300,7 +300,7 @@
             kin_phone = $("#kin_phone").val();
             //activities = $("#activities").val();
             //interests = $("#interests").val();
-            sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relationship, kin_phone);
+            sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relation, kin_phone);
         }
         else
         {
