@@ -243,7 +243,7 @@ class Application(tornado.web.Application):
             (r"/checkout", CheckOutHandler),
             (r"/userinfo", UserInfoPageHandler),
             (r"/gps", GpsHandler),
-            (r"/volunteers", ManageVolunteersPageHandler),
+            # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
