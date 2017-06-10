@@ -74,3 +74,55 @@ function training(){
 	    }
 	});
 }
+
+function start_task(){
+	var email = $("#email").val();
+	console.log(email);
+	var status = "start"; 
+	var data = "email="+email+"&status="+status;
+	console.log(data);
+	$.ajax({
+	    url : "/hold",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		alert("SUCCESS!");
+	    	}
+	    	else{
+	    		alert("Error checking in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
+
+function finish_task(){
+	var email = $("#email").val();
+	console.log(email);
+	var status = "finish"; 
+	var data = "email="+email+"&status="+status;
+	console.log(data);
+	$.ajax({
+	    url : "/hold",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		alert("SUCCESS!");
+	    	}
+	    	else{
+	    		alert("Error checking in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
