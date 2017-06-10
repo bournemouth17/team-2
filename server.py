@@ -10,6 +10,39 @@ import datetime
 
 define("port", default=8000, help="run on the given port", type=int)
 
+def get_spolunteer_data(o):
+    user = dict(
+        fname = o.get_argument('fname', ''),
+        lname = o.get_argument('lname', ''),
+        known = o.get_argument('known', ''),
+        age = o.get_argument('age', ''),
+        gender = o.get_argument('gender', ''),
+        phone = o.get_argument('phone', ''),
+        email = o.get_argument('email', ''),
+        address = o.get_argument('address', ''),
+        kin_name = o.get_argument('kin_name', ''),
+        kin_relationship = o.get_argument('kin_relationship', ''),
+        kin_phone = o.get_argument('kin_phone', ''),
+        outdoor = o.get_argument('outdoor', ''),
+        indoor = o.get_argument('indoor', ''),
+        interests = o.get_argument('indoor', ''),
+        date = datetime.datetime.now().strftime('%m/%d/%Y'),
+    )
+    return user
+
+class AuthTrackerHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        col = self.application.db['daily']
+        doc = col.find_one({'email': email[0]})
+        doc = col.find({'email': email[0]}).sort({_id:-1}).limit(1)
+        if doc:
+            if doc['stage'] == 5:
+                self.write({'status':1})
+            else:
+                self.self.write({'status':0, 'message': 'not in operation'})
+        self.self.write({'status':0, 'message': 'not checked in'})
+
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
@@ -49,6 +82,7 @@ class SignUpHandler(tornado.web.RequestHandler):
             col.insert(user)
             self.write({'status':1})
 
+
 class CheckInHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', ''),
@@ -85,7 +119,7 @@ class CheckOutHandler(tornado.web.RequestHandler):
 
 class GetUserDetailsHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
+        email = self.get_argument('email', '')
         col = self.application.db['spolunteer']
         doc = col.find_one({'email': email[0]})
         if doc:
@@ -95,21 +129,27 @@ class GetUserDetailsHandler(tornado.web.RequestHandler):
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
+        email = self.get_argument('email', '')
         col_1 = self.application.db['spolunteer']
         col_2 = self.application.db['daily']
         doc_1 = col_1.find_one({'email': email[0]})
         doc_2 = col_2.find_one({'email': email[0]})
-        if doc:
-            self.write({'status':1, 'user':doc})
+        if doc_1 and doc_2:
+            del doc_1['_id']
+            del doc_2['_id']
+            del doc_2['email']
+            result = doc_1.copy()
+            result.update(doc_2)
+            self.write({'status':1, 'user': result})
         else:
             self.write({'status':0, 'message':'no such user'})
 
 class EditUserHandler(tornado.web.RequestHandler):
     def post(self):
         col = self.application.db['daily']
+        email = self.get_argument('email', '')
 
-
+        user = { k: self.get_argument(k) for k in self.request.arguments }
 
 
 # class DemoHandler(tornado.web.RequestHandler):
@@ -155,6 +195,7 @@ class Application(tornado.web.Application):
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/bower_components")}),
+             (r"/authtracker", AuthTrackerHandler),
             # (r"/demo", DemoHandler),
             # (r"/pattern(\w+)", PatternHandler),
             # (r"/files/(.*)", tornado.web.StaticFileHandler,
