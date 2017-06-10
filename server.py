@@ -83,7 +83,7 @@ class GpsHandler(tornado.web.RequestHandler):
         lat = self.get_argument('lat','')
         lon = self.get_argument('lon','')
         col = self.application.db['tracking']
-        col2 = self.application.db['spoluneer']
+        col2 = self.application.db['spolunteer']
         doc = col.find_one({'email': email})
         doc2 = col2.find_one({'email': email})
         print email
