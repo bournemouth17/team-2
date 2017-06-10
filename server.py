@@ -35,13 +35,29 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', ''),
         col = self.application.db['daily']
         doc = col.find_one({'email': email[0]})
-        doc = col.find({'email': email[0]}).sort({_id:-1}).limit(1)
+        # doc = col.find({'email': email[0]}).sort({'_id':-1}).limit(1)
         if doc:
             if doc['stage'] == 5:
                 self.write({'status':1})
             else:
                 self.self.write({'status':0, 'message': 'not in operation'})
-        self.self.write({'status':0, 'message': 'not checked in'})
+        self.write({'status':0, 'message': 'not checked in'})
+
+class GpsHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        lat = self.get_argument('lat', ''),
+        lon = self.get_argument('lon', ''),
+        col = self.application.db['tracking']
+        doc = col.find_one({'email': email})
+        if doc:
+            doc['lat'] = lat
+            doc['lon'] = lon
+            col.save(doc)
+        else:
+            doc = {'email': email, 'lat': lat, 'lon': lon}
+            col.insert(doc)
+        self.write({'status':1})
 
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
@@ -70,7 +86,7 @@ class SignUpHandler(tornado.web.RequestHandler):
             kin_phone = self.get_argument('kin_phone', ''),
             outdoor = self.get_argument('outdoor', ''),
             indoor = self.get_argument('indoor', ''),
-            interests = self.get_argument('indoor', ''),
+            interests = self.get_argument('interests', ''),
             date = datetime.datetime.now().strftime('%m/%d/%Y'),
         )
         print user
@@ -151,6 +167,13 @@ class EditUserHandler(tornado.web.RequestHandler):
 
         user = { k: self.get_argument(k) for k in self.request.arguments }
 
+class SearchBySkillHandler(tornado.web.RequestHandler):
+    def post(self):
+        col = self.application.db['spolunteer']
+        skill = self.get_argument('skill', '')
+        doc = col.find({"interests":{"$regex": skill}})
+        print doc
+        self.write({'status':1})
 
 # class DemoHandler(tornado.web.RequestHandler):
 #     def get(self):
@@ -191,6 +214,7 @@ class Application(tornado.web.Application):
             # (r"/signup", FormPageHandler),
             (r"/checkin", CheckInHandler),
             (r"/checkout", CheckOutHandler),
+            (r"/gps", GpsHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
