@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-2" data-uk-grid-margin>
                                     <div class="uk-width-medium-1-2 parsley-row">
-                                        <label class="uk-form-label">Outdoor work<span class="req">*</span></label>
+                                        <label id="outdoor" class="uk-form-label">Outdoor work<span class="req">*</span></label>
                                         <span class="icheck-inline">
                                             <input type="radio" name="outdoor"  required class="wizard-icheck" value="Preferred" />
                                             <label for="preferred" class="inline-label">Preferred</label>
@@ -174,7 +174,7 @@
                                         </span>
                                     </div>
                                     <div class="uk-width-medium-1-2 parsley-row">
-                                        <label class="uk-form-label">Indoor work<span class="req">*</span></label>
+                                        <label id="indoor" class="uk-form-label">Indoor work<span class="req">*</span></label>
                                         <span class="icheck-inline">
                                             <input type="radio" name="indoor"  required class="wizard-icheck" value="Preferred" />
                                             <label for="indoor_preferred" class="inline-label">Preferred</label>
@@ -189,7 +189,7 @@
                                         </span>
                                     </div>
                                     <div class="parsley-row">
-                                        <select class="interests" name="interests[]" required multiple="multiple">
+                                        <select id="interests" name="interests[]" required multiple="multiple">
                                             <option value="">Please select your interests from the options below</option>
                                                 <option value="Data Entry">Data Entry</option>
                                                 <option value="Answering Phones/Taking Messages">Answering Phones/Taking Messages</option>
@@ -284,7 +284,7 @@
     <script>
         $(function() {
 
-            $(".interests").select2();
+            $("#interests").select2();
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
                 $theme_switcher = $('#theme_switcher'),
