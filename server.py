@@ -107,6 +107,19 @@ class CheckoutPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('check_out.html')
 
+    def post(self):
+        email = self.get_argument('email', '')
+        col = self.application.db['daily']
+        doc = col.find_one({'email': email})
+        if doc:
+            doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
+            doc['stage'] = 0
+            doc['armband'] = ''
+            col.save(doc)
+            self.write({'status':1})
+        else:
+            self.write({'status':0,'message':'not checked in'})
+
 class UserInfoPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('user_info.html')
@@ -178,20 +191,6 @@ class SignUpHandler(tornado.web.RequestHandler):
         else:
             col.insert(user)
             self.write({'status':1})
-
-
-class CheckOutHandler(tornado.web.RequestHandler):
-    def post(self):
-        email = self.get_argument('email', '')
-        col = self.application.db['daily']
-        doc = col.find_one({'email': email})
-        if doc:
-            doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
-            doc['stage'] = 0
-            col.save(doc)
-            self.write({'status':1})
-        else:
-            self.write({'status':0,'message':'not checked in'})
 
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
