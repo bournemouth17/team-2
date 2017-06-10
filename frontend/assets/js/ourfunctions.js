@@ -37,6 +37,7 @@ function load_user(email_add){
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
+	    	console.log(data);
 	    	if(data['status']==1){
 	    		//Load details into the page
 	    		$("#userinformation").show();
