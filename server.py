@@ -65,6 +65,16 @@ class GpsHandler(tornado.web.RequestHandler):
             col.insert(doc)
         self.write({'status':1})
 
+class DangerHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email','')
+        lat = self.get_argument('lat','')
+        lon = self.get_argument('lon','')
+        col = self.application.db['danger']
+        doc = {'email': email, 'lat': lat, 'lon': lon}
+        col.insert(doc)
+        self.write({'status':1})
+
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
@@ -136,7 +146,6 @@ class CheckOutHandler(tornado.web.RequestHandler):
             self.write({'status':1})
         else:
             self.write({'status':0,'message':'not checked in'})
-
 
 
 class GetUserDetailsHandler(tornado.web.RequestHandler):
