@@ -79,9 +79,17 @@ class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('index.html')
 
-class ManageVolunteersPageHandler(tornado.web.RequestHandler):
+class CheckinPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('plugins_datatables.html')
+
+class CheckoutPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('check_out.html')
+
+class UserInfoPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('user_info.html')
 
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
@@ -231,10 +239,11 @@ class Application(tornado.web.Application):
             (r"/", HomePageHandler),
             (r"/forms_wizard", SignUpHandler),
             # (r"/signup", FormPageHandler),
-            (r"/checkin", CheckInHandler),
-            (r"/checkout", CheckOutHandler),
+            (r"/checkin", CheckinPageHandler),
+            (r"/checkout", CheckoutPageHandler),
+            (r"/userinfo", UserInfoPageHandler),
             (r"/gps", GpsHandler),
-            (r"/volunteers", ManageVolunteersPageHandler),
+            # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
