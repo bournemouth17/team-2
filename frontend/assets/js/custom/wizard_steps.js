@@ -282,7 +282,7 @@
         if (wizard.triggerHandler("finishing", [state.currentIndex]))
         {
             currentStep.addClass("done").removeClass("error");
-            //wizard.triggerHandler("finished", [state.currentIndex]);
+            // wizard.triggerHandler("finished", [state.currentIndex]);
 
             //Capture data
             fname = $("#fname").val();
@@ -296,9 +296,11 @@
             kin_name = $("#kin_name").val();
             kin_relation = $("#kin_relationship").val();
             kin_phone = $("#kin_phone").val();
-            //activities = $("#activities").val();
-            //interests = $("#interests").val();
-            sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relation, kin_phone);
+            outdoor = $('input[name=outdoor]:checked').val();
+            indoor = $('input[name=indoor]:checked').val();
+            interests = $("#interests").val();
+            console.log("Val is: "+indoor);
+            sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relation, kin_phone, outdoor, indoor, interests);
             //$(".uk-modal-dialog").hide();
         }
         else
