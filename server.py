@@ -43,7 +43,7 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
             if doc['stage'] == 5:
                 self.write({'status':1})
             else:
-                self.self.write({'status':0, 'message': 'not in operation'})
+                self.write({'status':0, 'message': 'not in operation'})
         self.write({'status':0, 'message': 'not checked in'})
 
 class MapSocketHandler(tornado.websocket.WebSocketHandler):
@@ -51,15 +51,19 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
         websocket_clients.add(self)
         col_1 = self.application.db['tracking']
         col_2 = self.application.db['daily']
+        col_3 = self.application.db['spolunteer']
         response = col_1.find()
         results = []
         for item in response:
+            print item['email']
             active = col_2.find({'email':item['email'],'stage': { '$ne' : 0 }})
+            res = col_3.find_one({'email': item['email']})
+            print res
             if active:
                 results.append({
                     'coordinates':[item['lat'],item['lon']],
-                    'email':item['email'],
-                    'armband':item['armband']
+                    'phone':res['phone'],
+                    # 'armband':item['armband']
                 })
         self.write_message({'results': results})
         print("WebSocket opened")
@@ -75,11 +79,13 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
 class GpsHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email','')
-        armband = self.get_argument('bandno','')
+        # armband = self.get_argument('bandno','')
         lat = self.get_argument('lat','')
         lon = self.get_argument('lon','')
         col = self.application.db['tracking']
+        col2 = self.application.db['spolunteer']
         doc = col.find_one({'email': email})
+        doc2 = col2.find_one({'email': email})
         print email
         print lat
         print lon
@@ -96,8 +102,8 @@ class GpsHandler(tornado.web.RequestHandler):
         for ws_client in websocket_clients:
             ws_client.write_message({
                 'coordinates':[lat,lon],
-                'email':email,
-                'armband':armband
+                'phone':doc2['phone'],
+                # 'armband':armband
             })
         self.write({'status':1})
 
