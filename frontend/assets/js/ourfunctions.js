@@ -92,7 +92,7 @@ function load_guidance(){
 	    		$("#user_name").html(data['user'].fname+" "+data["user"].lname);
 	    		$("#user_edit_address").html(data['user'].address);
 	    		$("#user_fname").html("First name: "+data['user'].fname);
-	    		$("#user_lname").html(d"Last name: "+ata['user'].lname);
+	    		$("#user_lname").html("Last name: "+ata['user'].lname);
 	    		$("#user_address").html("Address: "+data['user'].address);
 	    		$("#user_age").html("Age: "+data['user'].age);
 	    		$("#user_email").html("Email: "+data['user'].email);
@@ -115,7 +115,7 @@ function load_guidance(){
 	    {
 	 		//Catch error in case we want to show a popup dialog
 	 		alert("Error signing in. Please try again.");
-	 		$("#userinformation").show();
+	 		//$("#userinformation").show();
 	    }
 	});
 }
@@ -189,5 +189,34 @@ function update_guidance(){
 	 		//Catch error in case we want to show a popup dialog
 	    }
 	});
+}
+
+function load_active_users(){
+
+	interests = $("#interests").val();
+
+	var data = "interests="+interests;
+
+	$.ajax({
+	    url : "/getskills",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		//alert("SUCCESS!");
+	    		$("#team_content").show();
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	 		$("#team_content").show();
+	    }
+	});
+
 }
 
