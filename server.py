@@ -164,6 +164,10 @@ class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('forms_wizard.html')
 
+class GuidancePageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('guidance.html')
+
 class TrainingPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('training.html')
@@ -309,6 +313,7 @@ class Application(tornado.web.Application):
             (r"/checkin", CheckinPageHandler),
             (r"/checkout", CheckoutPageHandler),
             (r"/userinfo", UserInfoPageHandler),
+            (r"/guidance", GuidancePageHandler),
             (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
             (r"/useredit", EditUserInfoHandler),
