@@ -110,7 +110,8 @@ class CheckoutPageHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email})
+        # doc = col.find_one({'email': email})
+        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
         if doc:
             doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
             doc['stage'] = 0
