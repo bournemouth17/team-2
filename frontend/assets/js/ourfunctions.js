@@ -73,6 +73,53 @@ function load_user(){
 	});
 }
 
+function load_guidance(){
+	email_add = $("#email").val();
+	data = "email="+email_add;
+
+	//console.log("REACHED HERE!");
+
+	$.ajax({
+	    url : "/userinfo",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	console.log(data);
+	    	if(data['status']==1){
+	    		//Load details into the page
+
+	    		$("#user_name").html(data['user'].fname+" "+data["user"].lname);
+	    		$("#user_edit_address").html(data['user'].address);
+	    		$("#user_fname").html("First name: "+data['user'].fname);
+	    		$("#user_lname").html(d"Last name: "+ata['user'].lname);
+	    		$("#user_address").html("Address: "+data['user'].address);
+	    		$("#user_age").html("Age: "+data['user'].age);
+	    		$("#user_email").html("Email: "+data['user'].email);
+	    		$("#user_phone").html("Phone: "+data['user'].phone);
+	    		$("#user_gender").html("Gender: "+data['user'].gender);
+	    		$("#user_known").html("Preferred name: "+data['user'].known);
+	    		$("#user_kin_name").html("Next of kin: "+data['user'].kin_name);
+	    		$("#user_kin_relationship").html("Relationship: "+data['user'].kin_relationship);
+	    		$("#user_kin_phone").html("Kin's phone: "+data['user'].kin_phone);
+	    		
+
+	    		//Show the div now
+	    		$("#userinformation").show();
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	 		alert("Error signing in. Please try again.");
+	 		$("#userinformation").show();
+	    }
+	});
+}
+
 function edit_user(){
 	//console.log("REACHED HERE!!!");
 	//Capture data
