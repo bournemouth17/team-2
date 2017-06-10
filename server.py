@@ -161,6 +161,23 @@ class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('forms_wizard.html')
 
+class TrainingPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('training.html')
+
+    def post(self):
+        email = self.get_argument('email', '')
+        training = self.get_argument('training', '')
+        col = self.application.db['daily']
+        doc = col.find_one({'email': email})
+        if doc:
+            doc['training'] = training
+            doc['stage'] = 3
+            col.save(doc)
+            self.write({'status':1})
+        else:
+            self.write({'status':0,'message':'not checked in'})
+
 class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('forms_wizard.html')
@@ -265,6 +282,7 @@ class Application(tornado.web.Application):
             (r"/checkin", CheckinPageHandler),
             (r"/checkout", CheckoutPageHandler),
             (r"/userinfo", UserInfoPageHandler),
+            (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
             # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
