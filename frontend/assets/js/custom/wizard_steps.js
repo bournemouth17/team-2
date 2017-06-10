@@ -282,9 +282,7 @@
         if (wizard.triggerHandler("finishing", [state.currentIndex]))
         {
             currentStep.addClass("done").removeClass("error");
-            wizard.triggerHandler("finished", [state.currentIndex]);
-            //console.log("FINISHED");
-            //console.log("First name: "+$("#fname").val());
+            //wizard.triggerHandler("finished", [state.currentIndex]);
 
             //Capture data
             fname = $("#fname").val();
@@ -301,6 +299,7 @@
             //activities = $("#activities").val();
             //interests = $("#interests").val();
             sign_up(fname, lname, known, address, age, gender, phone, email, kin_name, kin_relation, kin_phone);
+            //$(".uk-modal-dialog").hide();
         }
         else
         {
