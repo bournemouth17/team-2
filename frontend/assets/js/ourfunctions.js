@@ -50,6 +50,7 @@ function load_user(){
 	    		$("#edit_age").val(data['user'].age);
 	    		$("#edit_email").val(data['user'].email);
 	    		$("#edit_phone").val(data['user'].phone);
+	    		$("#edit_gender").val(data['user'].gender);
 	    		$("#edit_known").val(data['user'].known);
 	    		$("#edit_kin_name").val(data['user'].kin_name);
 	    		$("#edit_kin_relationship").val(data['user'].kin_relationship);
@@ -67,12 +68,13 @@ function load_user(){
 	    {
 	 		//Catch error in case we want to show a popup dialog
 	 		alert("Error signing in. Please try again.");
+	 		//$("#userinformation").show();
 	    }
 	});
 }
 
 function edit_user(){
-	console.log("REACHED HERE!!!");
+	//console.log("REACHED HERE!!!");
 	//Capture data
     fname = $("#edit_fname").val();
     lname = $("#edit_lname").val();
@@ -93,6 +95,34 @@ function edit_user(){
 			+"&interests="+interests;
 
 	console.log(data);
+
+	$.ajax({
+	    url : "/useredit",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		alert("SUCCESS!");
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
+
+function update_guidance(){
+
+	comments = $("#add_comments").val();
+	preferences = $("#preferences").val();
+	email = $("#user_email").text();
+
+	var data = "comments="+comments+"&preferences="+preferences+"&email="+email;
 
 	$.ajax({
 	    url : "/useredit",
