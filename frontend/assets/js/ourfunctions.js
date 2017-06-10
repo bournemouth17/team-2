@@ -29,3 +29,4 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 function load_users(){
 
 }
+
