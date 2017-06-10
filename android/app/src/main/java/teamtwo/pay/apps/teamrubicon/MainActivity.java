@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 //}
                 //else{
                 //    Toast.makeText(getBaseContext(), "Error verifying your details. Please try again.", Toast.LENGTH_LONG).show();
-                //}
+                //git commi}
             }catch(Exception r){
                 r.printStackTrace();
             }
