@@ -169,14 +169,14 @@ class TrainingPageHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', '')
         training = self.get_argument('training', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email})
+        doc = col.find_one({'email': email, 'stage' : 2 })
         if doc:
             doc['training'] = training
             doc['stage'] = 3
             col.save(doc)
             self.write({'status':1})
         else:
-            self.write({'status':0,'message':'not checked in'})
+            self.write({'status':0,'message':'unavailable'})
 
 class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
