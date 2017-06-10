@@ -26,7 +26,8 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 	});
 }
 
-function load_user(email_add){
+function load_user(){
+	email_add = $("#email").val();
 	data = "email="+email_add;
 
 	console.log("REACHED HERE!");
