@@ -35,7 +35,7 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', ''),
         col = self.application.db['daily']
         doc = col.find_one({'email': email[0]})
-        doc = col.find({'email': email[0]}).sort({_id:-1}).limit(1)
+        doc = col.find({'email': email[0]}).sort({'_id':-1}).limit(1)
         if doc:
             if doc['stage'] == 5:
                 self.write({'status':1})
