@@ -41,6 +41,17 @@ function load_user(){
 	    	console.log(data);
 	    	if(data['status']==1){
 	    		//Load details into the page
+
+	    		$("#user_edit_name").html(data['user'].fname+" "+data["user"].lname);
+	    		$("#user_edit_address").html(data['user'].address);
+	    		$("#edit_fname").html(data['user'].fname);
+	    		$("#edit_lname").html(data['user'].lname);
+	    		$("#edit_address").html(data['user'].address);
+	    		$("#edit_age").html(data['user'].age);
+	    		$("#edit_email").html(data['user'].email);
+	    		$("#edit_phone").html(data['user'].phone);
+
+	    		//Show the div now
 	    		$("#userinformation").show();
 	    	}
 	    	else{
@@ -50,7 +61,7 @@ function load_user(){
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
-	 		$("#userinformation").show();
+	 		alert("Error signing in. Please try again.");
 	    }
 	});
 }
