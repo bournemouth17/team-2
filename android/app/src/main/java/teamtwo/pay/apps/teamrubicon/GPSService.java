@@ -166,8 +166,10 @@ public class GPSService extends Service {
             try {
                 //Get email of use from shared preferences
                 SharedPreferences pref = getSharedPreferences("MyPref", 1); // 0 - for private mode
-                String email = pref.getString("email", "");
+                String email = pref.getString("email", "email");
                 details.add(new BasicNameValuePair("email", email));
+
+                System.out.println("EMAIL: "+email);
 
                 // getting JSON Object
                 JSONObject json = jsonParser.makeHttpRequest(Config.SERVER_URL+"gps",
