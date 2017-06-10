@@ -35,13 +35,33 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', ''),
         col = self.application.db['daily']
         doc = col.find_one({'email': email[0]})
-        doc = col.find({'email': email[0]}).sort({_id:-1}).limit(1)
+        # doc = col.find({'email': email[0]}).sort({'_id':-1}).limit(1)
         if doc:
             if doc['stage'] == 5:
                 self.write({'status':1})
             else:
                 self.self.write({'status':0, 'message': 'not in operation'})
-        self.self.write({'status':0, 'message': 'not checked in'})
+        self.write({'status':0, 'message': 'not checked in'})
+
+class GpsHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', ''),
+        lat = self.get_argument('lat', ''),
+        lon = self.get_argument('lon', ''),
+        col = self.application.db['tracking']
+        doc = col.find_one({'email': email[0]})
+        print email
+        print lat
+        print lon
+        print doc
+        if doc:
+            doc['lat'] = lat
+            doc['lon'] = lon
+            col.save(doc)
+        else:
+            doc = {'email': email[0], 'lat': lat, 'lon': lon}
+            col.insert(doc)
+        self.write({'status':1})
 
 class HomePageHandler(tornado.web.RequestHandler):
     def get(self):
@@ -198,6 +218,7 @@ class Application(tornado.web.Application):
             # (r"/signup", FormPageHandler),
             (r"/checkin", CheckInHandler),
             (r"/checkout", CheckOutHandler),
+            (r"/gps", GpsHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
