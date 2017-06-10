@@ -140,7 +140,7 @@ class GetUserActivityHandler(tornado.web.RequestHandler):
             del doc_2['email']
             result = doc_1.copy()
             result.update(doc_2)
-            self.write({'status':1, 'user': result)
+            self.write({'status':1, 'user': result})
         else:
             self.write({'status':0, 'message':'no such user'})
 
