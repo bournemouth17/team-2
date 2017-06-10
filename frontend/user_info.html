@@ -93,9 +93,9 @@
                         <span class="menu_title">Reception</span>
                     </a>
                     <ul>
-                        <li><a href="plugins_datatables.html">Check In</a></li>
-                        <li><a href="check_out.html">Check Out</a></li>
-                        <li class="active"><a href="user_info.html">User Info</a></li>
+                        <li><a href="/checkin">Check In</a></li>
+                        <li><a href="/checkout">Check Out</a></li>
+                        <li><a href="/userinfo">User Info</a></li>
                     </ul>
                 </li>
                 <li>
@@ -104,7 +104,7 @@
                         <span class="menu_title">Guidance</span>
                     </a>
                     <ul>
-                        <li><a href="forms_file_input.html">Interview</a></li>
+                        <li><a href="/guidance">Interview</a></li>
                     </ul>
                 </li>
                 <li>
@@ -113,7 +113,7 @@
                         <span class="menu_title">Training</span>
                     </a>
                     <ul>
-                        <li><a href="forms_file_input.html">Training Completion</a></li>
+                        <li><a href="/training">Training Completion</a></li>
                     </ul>
                 </li>
                 <li>
@@ -122,8 +122,8 @@
                         <span class="menu_title">Holding</span>
                     </a>
                     <ul>
-                        <li><a href="forms_file_input.html">Start Task</a></li>
-                        <li><a href="forms_file_input.html">End Task</a></li>
+                        <li><a href="/start">Start Task</a></li>
+                        <li><a href="/finish">End Task</a></li>
                     </ul>
                 </li>
                 <li>
@@ -132,8 +132,8 @@
                         <span class="menu_title">Operations</span>
                     </a>
                     <ul>
-                        <li><a href="forms_file_input.html">Task Management</a></li>
-                        <li><a href="forms_file_input.html">Assign Team</a></li>
+                        <li><a href="/tasks">Task Management</a></li>
+                        <li><a href="/teams">Assign Team</a></li>
                     </ul>
                 </li>
             </ul>
@@ -193,7 +193,7 @@
                                     <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent">
                                         <i class="material-icons">&#xE8BE;</i>
                                         <div class="md-fab-toolbar-actions">
-                                            <button type="submit" id="user_edit_save" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons md-color-white">&#xE161;</i></button>
+                                            <button type="submit" id="user_edit_save" onclick="edit_user()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons md-color-white">&#xE161;</i></button>
                                             <button type="submit" id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Print"><i class="material-icons md-color-white">&#xE555;</i></button>
                                             <button type="submit" id="user_edit_delete" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Delete"><i class="material-icons md-color-white">&#xE872;</i></button>
                                         </div>
@@ -259,7 +259,7 @@
                                                                     <i class="md-list-addon-icon material-icons">&#xE158;</i>
                                                                 </span>
                                                                 <label>Email</label>
-                                                                <input type="text" class="md-input" name="edit_email" />
+                                                                <input type="text" class="md-input" name="edit_email" id="edit_email" />
                                                             </div>
                                                         </div>
                                                         <div>
@@ -268,7 +268,7 @@
                                                                     <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
                                                                 </span>
                                                                 <label>Phone Number</label>
-                                                                <input type="text" class="md-input" name="edit_phone" />
+                                                                <input type="text" class="md-input" name="edit_phone" id="edit_phone" />
                                                             </div>
                                                         </div>
                                                     </div>
