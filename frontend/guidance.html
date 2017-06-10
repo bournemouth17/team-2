@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">
 
-    <title>TeamRubicon -- Manage Spolunteers</title>
+    <title>TeamRubicon -- Spolunteer Interview</title>
 
 
     <!-- uikit -->
@@ -142,7 +142,7 @@
 
     <div id="page_content">
         <div id="page_content_inner">
-            <h3 class="heading_b uk-margin-bottom">User Information</h3>         
+            <h3 class="heading_b uk-margin-bottom">Guidance</h3>         
             <div class="md-card uk-margin-large-bottom">
 
                 <div class="md-card-content">
@@ -168,7 +168,7 @@
 
                     <form action="" class="uk-form-stacked" id="user_edit_form">
                         <div id="userinformation" class="uk-grid" style="display: none" data-uk-grid-margin>
-                        <h4 class="heading_b uk-margin-bottom">User Details</h4>
+                        <h4 class="heading_b uk-margin-bottom">Update user's status</h4>
                         <div class="uk-width-large-10-10">
                             <div class="md-card">
                                 <div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
@@ -211,64 +211,71 @@
                                             </h3>
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_uname_control">First name</label>
+                                                    <p id="user_fname">First name</p>
                                                     <input class="md-input" type="text" id="edit_fname" name="edit_fname" />
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_position_control">Last name</label>
-                                                    <input class="md-input" type="text" id="edit_lname" name="edit_lname" />
+                                                    <p id="user_lname">Last name</p>
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_position_control">Preferred name</label>
-                                                    <input class="md-input" type="text" id="edit_known" name="edit_known" />
+                                                    <p id="user_known">Preferred name</p>
                                                 </div>
                                             </div>
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-2">
-                                                    <label for="user_edit_uname_control">Address</label>
-                                                    <input class="md-input" type="text" id="edit_address" name="edit_address" />
+                                                    <p id="user_address">Address</p>
                                                 </div>
                                                 <div class="uk-width-medium-1-2">
-                                                    <label for="user_edit_position_control">Age</label>
-                                                    <input class="md-input" type="text" id="edit_age" name="edit_age" />
+                                                    <p id="user_age">Age</p>
                                                 </div>
                                             </div>
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_uname_control">Next of kin</label>
-                                                    <input class="md-input" type="text" id="edit_kin_name" name="edit_kin_name" />
+                                                    <p id="user_edit_uname_control">Next of kin</p>
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_position_control">Relationship with kin</label>
-                                                    <input class="md-input" type="text" id="edit_kin_relationship" name="edit_kin_relationship" />
+                                                    <p id="user_kin_relation">Relationship with kin</p>
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <label for="user_edit_position_control">Kin's phone</label>
-                                                    <input class="md-input" type="text" id="edit_kin_phone" name="edit_kin_phone" />
+                                                    <p id="user_kin_phone">Kin's phone</p>
+                                                </div>
+                                                <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2" data-uk-grid-margin>
+                                                    <div>
+                                                        <div class="uk-input-group">
+                                                            <span class="uk-input-group-addon">
+                                                                <i class="md-list-addon-icon material-icons">&#xE158;</i>
+                                                            </span>
+                                                            <p id="user_email">Email</p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="uk-input-group">
+                                                            <span class="uk-input-group-addon">
+                                                                <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
+                                                            </span>
+                                                            <p id="user_phone">Phone Number</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <h3 class="full_width_in_card heading_c">
-                                                Contact info
+                                                Update info below
                                             </h3>
                                             <div class="uk-grid">
                                                 <div class="uk-width-1-1">
                                                     <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2" data-uk-grid-margin>
                                                         <div>
                                                             <div class="uk-input-group">
-                                                                <span class="uk-input-group-addon">
-                                                                    <i class="md-list-addon-icon material-icons">&#xE158;</i>
-                                                                </span>
-                                                                <label>Email</label>
-                                                                <input type="text" class="md-input" name="edit_email" id="edit_email" />
+                                                                <label>Add comments</label>
+                                                                <input type="textarea" class="md-input" name="add_comments" id="add_comments" />
                                                             </div>
                                                         </div>
                                                         <div>
                                                             <div class="uk-input-group">
-                                                                <span class="uk-input-group-addon">
-                                                                    <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
-                                                                </span>
-                                                                <label>Phone Number</label>
-                                                                <input type="text" class="md-input" name="edit_phone" id="edit_phone" />
+                                                                <select id="interests" name="interests[]" required multiple="multiple">
+                                                                <option value="">Update preference</option>
+                                                                <option value="ops">OPS</option>
+                                                                <option value="vrc">VRC</option>
                                                             </div>
                                                         </div>
                                                     </div>

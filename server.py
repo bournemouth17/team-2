@@ -110,7 +110,8 @@ class CheckoutPageHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email})
+        # doc = col.find_one({'email': email})
+        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
         if doc:
             doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
             doc['stage'] = 0
@@ -136,7 +137,8 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0, 'message':'no such user'})
 
-    def put(self):
+class EditUserInfoHandler(tornado.web.RequestHandler):
+    def post(self):
         user = dict(
             fname = self.get_argument('fname', ''),
             lname = self.get_argument('lname', ''),
@@ -156,6 +158,7 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
         )
         col = self.application.db['spolunteer']
         col.update_one({'email':user['email']},{'$set':user})
+        self.write({'status':1, 'user':doc})
 
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
@@ -208,6 +211,22 @@ class SignUpHandler(tornado.web.RequestHandler):
         else:
             col.insert(user)
             self.write({'status':1})
+
+class TaskStatusHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email', '')
+        status = self.get_argument('status', '')
+        col = self.application.db['daily']
+        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
+        if doc:
+            if status == 'start':
+                doc['stage'] = 5
+            else:
+                doc['stage'] = 4
+            col.save(doc)
+            self.write({'status':1})
+        else:
+            self.write({'status':0,'message':'unavailable'})
 
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
@@ -284,6 +303,8 @@ class Application(tornado.web.Application):
             (r"/userinfo", UserInfoPageHandler),
             (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
+            (r"/useredit", EditUserInfoHandler),
+            (r"/hold", TaskStatusHandler),
             # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
