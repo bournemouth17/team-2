@@ -95,8 +95,8 @@ function edit_user(){
 	console.log(data);
 
 	$.ajax({
-	    url : "/userinfo",
-	    type: "PUT",
+	    url : "/useredit",
+	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
