@@ -88,3 +88,4 @@ function edit_user(){
     interests = $("#interests").val();
     console.log("Val is: "+indoor);
 }
+
