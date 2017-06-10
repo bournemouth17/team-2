@@ -110,7 +110,8 @@ class CheckoutPageHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email})
+        # doc = col.find_one({'email': email})
+        doc = col.find({'email': email}).sort({'_id':-1}).limit(1)[0]
         if doc:
             doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
             doc['stage'] = 0
@@ -136,7 +137,8 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0, 'message':'no such user'})
 
-    def put(self):
+class EditUserInfoHandler(tornado.web.RequestHandler):
+    def post(self):
         user = dict(
             fname = self.get_argument('fname', ''),
             lname = self.get_argument('lname', ''),
@@ -284,6 +286,7 @@ class Application(tornado.web.Application):
             (r"/userinfo", UserInfoPageHandler),
             (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
+            (r"/useredit", EditUserInfoHandler),
             # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
             (r"/assets/(.*)", tornado.web.StaticFileHandler,
