@@ -83,6 +83,26 @@ class CheckinPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('plugins_datatables.html')
 
+    def post(self):
+        email = self.get_argument('email', '')
+        armband = self.get_argument('arnumber', '')
+        col_from = self.application.db['spolunteer']
+        col_to = self.application.db['daily']
+        doc = col_from.find_one({'email': email})
+        if doc:
+            del doc['_id']
+            user_day = {
+                'email':doc['email'],
+                'stage': 1,
+                'armband' : armband,
+                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
+                'checkin' : datetime.datetime.now().strftime('%H:%M'),
+            }
+            col_to.insert(user_day)
+            self.write({'status':1,'user':doc})
+        else:
+            self.write({'status':0,'message':'not registered'})
+
 class CheckoutPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('check_out.html')
@@ -102,6 +122,27 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
             self.write({'status':1, 'user':doc})
         else:
             self.write({'status':0, 'message':'no such user'})
+
+    def put(self):
+        user = dict(
+            fname = self.get_argument('fname', ''),
+            lname = self.get_argument('lname', ''),
+            known = self.get_argument('known', ''),
+            age = self.get_argument('age', ''),
+            gender = self.get_argument('gender', ''),
+            phone = self.get_argument('phone', ''),
+            email = self.get_argument('email', ''),
+            address = self.get_argument('address', ''),
+            kin_name = self.get_argument('kin_name', ''),
+            kin_relationship = self.get_argument('kin_relationship', ''),
+            kin_phone = self.get_argument('kin_phone', ''),
+            outdoor = self.get_argument('outdoor', ''),
+            indoor = self.get_argument('indoor', ''),
+            interests = self.get_argument('interests', ''),
+            date = datetime.datetime.now().strftime('%m/%d/%Y'),
+        )
+        col = self.application.db['spolunteer']
+        col.update_one({'email':user['email']},{'$set':user})
 
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
@@ -138,25 +179,6 @@ class SignUpHandler(tornado.web.RequestHandler):
             col.insert(user)
             self.write({'status':1})
 
-
-class CheckInHandler(tornado.web.RequestHandler):
-    def post(self):
-        email = self.get_argument('email', '')
-        col_from = self.application.db['spolunteer']
-        col_to = self.application.db['daily']
-        doc = col_from.find_one({'email': email[0]})
-        if doc:
-            del doc['_id']
-            user_day = {
-                'email':doc['email'],
-                'stage': 1,
-                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
-                'checkin' : datetime.datetime.now().strftime('%H:%M'),
-            }
-            col_to.insert(user_day)
-            self.write({'status':1,'user':doc})
-        else:
-            self.write({'status':0,'message':'not registered'})
 
 class CheckOutHandler(tornado.web.RequestHandler):
     def post(self):
