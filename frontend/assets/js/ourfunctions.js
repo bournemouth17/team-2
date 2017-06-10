@@ -26,7 +26,8 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 	});
 }
 
-function load_user(email_add){
+function load_user(){
+	email_add = $("#email").val();
 	data = "email="+email_add;
 
 	console.log("REACHED HERE!");
@@ -40,6 +41,17 @@ function load_user(email_add){
 	    	console.log(data);
 	    	if(data['status']==1){
 	    		//Load details into the page
+
+	    		$("#user_edit_name").html(data['user'].fname+" "+data["user"].lname);
+	    		$("#user_edit_address").html(data['user'].address);
+	    		$("#edit_fname").parentElement.MaterialTextfield.change(data['user'].fname);
+	    		$("#edit_lname").parentElement.MaterialTextfield.change(data['user'].lname);
+	    		$("#edit_address").val(data['user'].address);
+	    		$("#edit_age").val(data['user'].age);
+	    		$("#edit_email").val(data['user'].email);
+	    		$("#edit_phone").val(data['user'].phone);
+
+	    		//Show the div now
 	    		$("#userinformation").show();
 	    	}
 	    	else{
@@ -49,7 +61,12 @@ function load_user(email_add){
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
-	 		$("#userinformation").show();
+	 		alert("Error signing in. Please try again.");
 	    }
 	});
 }
+
+function edit_user(){
+
+}
+
