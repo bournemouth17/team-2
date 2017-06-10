@@ -60,6 +60,8 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
             res = col_3.find_one({'email': item['email']})
             print res
             if active:
+                if not res:
+                    res['phone'] = ''
                 results.append({
                     'coordinates':[item['lat'],item['lon']],
                     'phone':res['phone'],
