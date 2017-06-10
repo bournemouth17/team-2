@@ -26,6 +26,29 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 	});
 }
 
-function load_users(){
+function load_user(email_add){
+	data = "email="+email_add;
 
+	console.log("REACHED HERE!");
+
+	$.ajax({
+	    url : "/userinfo",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		//Load details into the page
+	    		$("#userinformation").show();
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	 		$("#userinformation").show();
+	    }
+	});
 }
