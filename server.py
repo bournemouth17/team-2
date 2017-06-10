@@ -158,7 +158,7 @@ class EditUserInfoHandler(tornado.web.RequestHandler):
         )
         col = self.application.db['spolunteer']
         col.update_one({'email':user['email']},{'$set':user})
-        self.write({'status':1, 'user':doc})
+        self.write({'status':1})
 
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
