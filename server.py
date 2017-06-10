@@ -79,11 +79,9 @@ class SignUpHandler(tornado.web.RequestHandler):
         if doc:
             self.write({'status':0, 'message': 'already registered'})
         else:
-            col.insert(use5)
+            col.insert(user)
             self.write({'status':1})
-        else:
-            self.self.write({'status':0, 'message': 'not in operation'})
-    self.self.write({'status':0, 'message': 'not checked in'})
+
 
 class CheckInHandler(tornado.web.RequestHandler):
     def post(self):
