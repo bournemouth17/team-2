@@ -59,7 +59,7 @@ class GpsHandler(tornado.web.RequestHandler):
             doc['lon'] = lon
             col.save(doc)
         else:
-            doc = {'email': email, 'lat': lat, 'lon': lon}
+            doc = {'email': email[0], 'lat': lat, 'lon': lon}
             col.insert(doc)
         self.write({'status':1})
 
