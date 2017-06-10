@@ -72,7 +72,7 @@ function load_user(){
 }
 
 function edit_user(){
-	console.log("REACHED HERE!!!");
+	//console.log("REACHED HERE!!!");
 	//Capture data
     fname = $("#edit_fname").val();
     lname = $("#edit_lname").val();
@@ -93,6 +93,34 @@ function edit_user(){
 			+"&interests="+interests;
 
 	console.log(data);
+
+	$.ajax({
+	    url : "/useredit",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		alert("SUCCESS!");
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
+
+function update_guidance(){
+
+	comments = $("#add_comments").val();
+	preferences = $("#preferences").val();
+	email = $("#user_email").text();
+
+	var data = "comments="+comments+"&preferences="+preferences+"&email="+email;
 
 	$.ajax({
 	    url : "/useredit",
