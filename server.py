@@ -32,9 +32,9 @@ def get_spolunteer_data(o):
 
 class AuthTrackerHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
+        email = self.get_argument('email', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email[0]})
+        doc = col.find_one({'email': email})
         # doc = col.find({'email': email[0]}).sort({'_id':-1}).limit(1)
         if doc:
             if doc['stage'] == 5:
@@ -45,18 +45,34 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
 
 class GpsHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
-        lat = self.get_argument('lat', ''),
-        lon = self.get_argument('lon', ''),
+        email = self.get_argument('email','')
+        lat = self.get_argument('lat','')
+        lon = self.get_argument('lon','')
         col = self.application.db['tracking']
         doc = col.find_one({'email': email})
+        print email
+        print lat
+        print lon
+        print doc
         if doc:
             doc['lat'] = lat
             doc['lon'] = lon
+            print doc
             col.save(doc)
         else:
             doc = {'email': email, 'lat': lat, 'lon': lon}
+            print doc
             col.insert(doc)
+        self.write({'status':1})
+
+class DangerHandler(tornado.web.RequestHandler):
+    def post(self):
+        email = self.get_argument('email','')
+        lat = self.get_argument('lat','')
+        lon = self.get_argument('lon','')
+        col = self.application.db['danger']
+        doc = {'email': email, 'lat': lat, 'lon': lon}
+        col.insert(doc)
         self.write({'status':1})
 
 class HomePageHandler(tornado.web.RequestHandler):
@@ -101,7 +117,7 @@ class SignUpHandler(tornado.web.RequestHandler):
 
 class CheckInHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
+        email = self.get_argument('email', '')
         col_from = self.application.db['spolunteer']
         col_to = self.application.db['daily']
         doc = col_from.find_one({'email': email[0]})
@@ -120,9 +136,9 @@ class CheckInHandler(tornado.web.RequestHandler):
 
 class CheckOutHandler(tornado.web.RequestHandler):
     def post(self):
-        email = self.get_argument('email', ''),
+        email = self.get_argument('email', '')
         col = self.application.db['daily']
-        doc = col.find_one({'email': email[0]})
+        doc = col.find_one({'email': email})
         if doc:
             doc['checkout'] = datetime.datetime.now().strftime('%H:%M')
             doc['stage'] = 0
@@ -132,12 +148,11 @@ class CheckOutHandler(tornado.web.RequestHandler):
             self.write({'status':0,'message':'not checked in'})
 
 
-
 class GetUserDetailsHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
         col = self.application.db['spolunteer']
-        doc = col.find_one({'email': email[0]})
+        doc = col.find_one({'email': email})
         if doc:
             self.write({'status':1, 'user':doc})
         else:
@@ -148,8 +163,8 @@ class GetUserActivityHandler(tornado.web.RequestHandler):
         email = self.get_argument('email', '')
         col_1 = self.application.db['spolunteer']
         col_2 = self.application.db['daily']
-        doc_1 = col_1.find_one({'email': email[0]})
-        doc_2 = col_2.find_one({'email': email[0]})
+        doc_1 = col_1.find_one({'email': email})
+        doc_2 = col_2.find_one({'email': email})
         if doc_1 and doc_2:
             del doc_1['_id']
             del doc_2['_id']

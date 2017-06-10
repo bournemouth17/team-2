@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TeamRubicon</string>
+    <string name="email">Enter your email address</string>
+    <string name="band_number">Enter your band number</string>
+    <string name="starttracking">Start tracking</string>
+    <string name="stoptracking">Stop tracking</string>
+    <string name="emergency">Call for help!</string>
+</resources>
