@@ -68,6 +68,7 @@ function load_user(){
 	    {
 	 		//Catch error in case we want to show a popup dialog
 	 		alert("Error signing in. Please try again.");
+	 		//$("#userinformation").show();
 	    }
 	});
 }
