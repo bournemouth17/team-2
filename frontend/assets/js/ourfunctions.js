@@ -44,8 +44,8 @@ function load_user(){
 
 	    		$("#user_edit_name").html(data['user'].fname+" "+data["user"].lname);
 	    		$("#user_edit_address").html(data['user'].address);
-	    		$("#edit_fname").val(data['user'].fname);
-	    		$("#edit_lname").val(data['user'].lname);
+	    		$("#edit_fname").MaterialTextField.change(data['user'].fname);
+	    		$("#edit_lname").MaterialTextField.change(data['user'].lname);
 	    		$("#edit_address").val(data['user'].address);
 	    		$("#edit_age").val(data['user'].age);
 	    		$("#edit_email").val(data['user'].email);
