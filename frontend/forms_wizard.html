@@ -30,7 +30,7 @@
     <![endif]-->
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
 </head>
 <body class="top_menu app_theme_h">
@@ -189,13 +189,6 @@
                                         </span>
                                     </div>
                                     <div class="parsley-row">
-                                        <select id="activities" name="activities" required>
-                                            <option value="">What do you prefer</option>
-                                                <option value="male">Outdoor activities</option>
-                                                <option value="female">Indoor activities</option>
-                                        </select>
-                                    </div>
-                                    <div class="parsley-row">
                                         <select class="interests" name="interests[]" required multiple="multiple">
                                             <option value="">Please select your interests from the options below</option>
                                                 <option value="Data Entry">Data Entry</option>
@@ -248,9 +241,7 @@
         })();
     </script>
 
-    <script type="text/javascript">
-        $(".interests").select2();
-    </script>
+   
 
     <!-- common functions -->
     <script src="assets/js/common.min.js"></script>
@@ -275,7 +266,9 @@
     <script src="assets/js/pages/forms_wizard.min.js"></script>
 
     <!--Our functions-->
-    <script src="assets/js/ourfunctions.js">
+    <script src="assets/js/ourfunctions.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
     
     <script>
         $(function() {
@@ -291,6 +284,7 @@
     <script>
         $(function() {
 
+            $(".interests").select2();
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
                 $theme_switcher = $('#theme_switcher'),

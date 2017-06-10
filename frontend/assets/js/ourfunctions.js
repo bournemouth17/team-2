@@ -2,7 +2,7 @@ function sign_up(fname, lname, known, address, age, gender, phone, email, kin_na
 	var data = "fname="+fname+"&lname="+lname+"&known="+known+"&address="+address
 			+"&age="+age+"&gender="+gender+"&phone="+phone+"&email="+email
 			+"&kin_name="+kin_name+"&kin_relationship="+kin_relationship+"&kin_phone="+kin_phone
-			+"&outdoor="+outdoor+"&indoor="+indoor+"&interests"+interests;
+			+"&outdoor="+outdoor+"&indoor="+indoor+"&interests="+interests;
 
 	console.log(data);
 
