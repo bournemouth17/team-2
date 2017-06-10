@@ -43,13 +43,6 @@ public class GPSService extends Service {
 
     JSONParser jsonParser = new JSONParser();
 
-    String myLat;
-    String myLon;
-
-    public GPSService(){
-
-    }
-
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
 
@@ -163,9 +156,6 @@ public class GPSService extends Service {
             details = new ArrayList<NameValuePair>();
             details.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             details.add(new BasicNameValuePair("lon", String.valueOf(lon)));
-
-            myLat = String.valueOf(lat);
-            myLon = String.valueOf(lon);
 
             System.out.println("LAT: "+String.valueOf(lat));
             System.out.println("LON: "+String.valueOf(lon));

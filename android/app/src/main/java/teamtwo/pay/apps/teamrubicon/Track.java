@@ -1,8 +1,11 @@
 package teamtwo.pay.apps.teamrubicon;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.location.LocationListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -26,7 +31,7 @@ import teamtwo.pay.apps.teamrubicon.connectors.JSONParser;
  * Created by kenneth on 6/10/17.
  */
 
-public class Track extends AppCompatActivity {
+public class Track extends AppCompatActivity implements android.location.LocationListener{
 
     Button btnStopTrack, btnEmergency;
 
@@ -36,10 +41,41 @@ public class Track extends AppCompatActivity {
 
     JSONParser jsonParser = new JSONParser();
 
+    String myLat;
+    String myLon;
+
+    private static final String TAG = "BOOMBOOMTESTGPS";
+    private LocationManager mLocationManager = null;
+    private static final int LOCATION_INTERVAL = 1000;
+    private static final float LOCATION_DISTANCE = 10f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
+
+        //Collect coordinates in case danger button pressed
+        Location mLastLocation;
+
+        initializeLocationManager();
+        try {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
+                    this);
+        } catch (java.lang.SecurityException ex) {
+            Log.i(TAG, "fail to request location update, ignore", ex);
+        } catch (IllegalArgumentException ex) {
+            Log.d(TAG, "network provider does not exist, " + ex.getMessage());
+        }
+        try {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
+                    this);
+        } catch (java.lang.SecurityException ex) {
+            Log.i(TAG, "fail to request location update, ignore", ex);
+        } catch (IllegalArgumentException ex) {
+            Log.d(TAG, "gps provider does not exist " + ex.getMessage());
+        }
 
         btnStopTrack = (Button) findViewById(R.id.btnStopTracking);
         btnStopTrack.setOnClickListener(new View.OnClickListener(){
@@ -53,7 +89,6 @@ public class Track extends AppCompatActivity {
                 editor.commit();
 
                 //Stop GPS service
-                //Initialize GPS tracking
                 Intent intent = new Intent(getApplicationContext(), GPSService.class);
                 stopService(intent);
 
@@ -73,19 +108,38 @@ public class Track extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        System.out.println("LOCATION CHANGED!!!");
+        myLat = String.valueOf(location.getLatitude());
+        myLon = String.valueOf(location.getLongitude());
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
     class requestHelp extends AsyncTask<String, String, String> {
 
         public requestHelp() {
 
-            //Get last known coordinates from GPS service
-            GPSService myLoc = new GPSService();
-
             details = new ArrayList<NameValuePair>();
-            details.add(new BasicNameValuePair("lat", myLoc.myLat));
-            details.add(new BasicNameValuePair("lon", myLoc.myLon));
+            details.add(new BasicNameValuePair("lat", myLat));
+            details.add(new BasicNameValuePair("lon", myLon));
 
-            System.out.println("HELP LAT: "+myLoc.myLat);
-            System.out.println("HELP LON: "+myLoc.myLon);
+            System.out.println("HELP LAT: "+myLat);
+            System.out.println("HELP LON: "+myLon);
         }
 
         @Override
@@ -134,6 +188,13 @@ public class Track extends AppCompatActivity {
             }catch(Exception r){
                 r.printStackTrace();
             }
+        }
+    }
+
+    private void initializeLocationManager() {
+        Log.e(TAG, "initializeLocationManager");
+        if (mLocationManager == null) {
+            mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
     }
 
