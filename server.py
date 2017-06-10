@@ -212,6 +212,14 @@ class SignUpHandler(tornado.web.RequestHandler):
             col.insert(user)
             self.write({'status':1})
 
+class StartPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('start_task.html')
+
+class StartPageHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('finish_task.html')
+
 class TaskStatusHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
@@ -304,6 +312,8 @@ class Application(tornado.web.Application):
             (r"/training", TrainingPageHandler),
             (r"/gps", GpsHandler),
             (r"/useredit", EditUserInfoHandler),
+            (r"/start", StartPageHandler),
+            (r"/finish", FinishPageHandler),
             (r"/hold", TaskStatusHandler),
             # (r"/volunteers", ManageVolunteersPageHandler),
             (r"/danger", DangerHandler),
