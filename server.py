@@ -91,6 +91,16 @@ class UserInfoPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('user_info.html')
 
+    def post(self):
+        email = self.get_argument('email', '')
+        col = self.application.db['spolunteer']
+        doc = col.find_one({'email': email})
+        if doc:
+            del doc['_id']
+            self.write({'status':1, 'user':doc})
+        else:
+            self.write({'status':0, 'message':'no such user'})
+
 class FormPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('forms_wizard.html')
@@ -159,16 +169,6 @@ class CheckOutHandler(tornado.web.RequestHandler):
         else:
             self.write({'status':0,'message':'not checked in'})
 
-
-class GetUserDetailsHandler(tornado.web.RequestHandler):
-    def post(self):
-        email = self.get_argument('email', '')
-        col = self.application.db['spolunteer']
-        doc = col.find_one({'email': email})
-        if doc:
-            self.write({'status':1, 'user':doc})
-        else:
-            self.write({'status':0, 'message':'no such user'})
 
 class GetUserActivityHandler(tornado.web.RequestHandler):
     def post(self):
