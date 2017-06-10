@@ -216,7 +216,7 @@ class StartPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('start_task.html')
 
-class StartPageHandler(tornado.web.RequestHandler):
+class FinishPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('finish_task.html')
 
