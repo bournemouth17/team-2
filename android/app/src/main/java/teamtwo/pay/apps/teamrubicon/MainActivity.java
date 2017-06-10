@@ -186,6 +186,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent gpsintent = new Intent(getApplicationContext(), GPSService.class);
                 startService(gpsintent);
 
+                //Store phone number in sharedpref session
+                SharedPreferences preftest = getSharedPreferences("MyPref", 1); // 0 - for private mode
+                SharedPreferences.Editor editortest = preftest.edit();
+                editortest.putString("email", myemail);
+                editortest.commit();
+
                 Intent hometest = new Intent(getBaseContext(), Track.class);
                 startActivity(hometest);
 

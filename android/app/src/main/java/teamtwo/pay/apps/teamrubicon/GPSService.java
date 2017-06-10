@@ -43,6 +43,13 @@ public class GPSService extends Service {
 
     JSONParser jsonParser = new JSONParser();
 
+    String myLat;
+    String myLon;
+
+    public GPSService(){
+
+    }
+
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
 
@@ -157,6 +164,9 @@ public class GPSService extends Service {
             details.add(new BasicNameValuePair("lat", String.valueOf(lat)));
             details.add(new BasicNameValuePair("lon", String.valueOf(lon)));
 
+            myLat = String.valueOf(lat);
+            myLon = String.valueOf(lon);
+
             System.out.println("LAT: "+String.valueOf(lat));
             System.out.println("LON: "+String.valueOf(lon));
         }
@@ -166,8 +176,10 @@ public class GPSService extends Service {
             try {
                 //Get email of use from shared preferences
                 SharedPreferences pref = getSharedPreferences("MyPref", 1); // 0 - for private mode
-                String email = pref.getString("email", "");
+                String email = pref.getString("email", "email");
                 details.add(new BasicNameValuePair("email", email));
+
+                System.out.println("EMAIL: "+email);
 
                 // getting JSON Object
                 JSONObject json = jsonParser.makeHttpRequest(Config.SERVER_URL+"gps",
