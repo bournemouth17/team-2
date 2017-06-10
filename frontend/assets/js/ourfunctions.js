@@ -83,6 +83,7 @@ function edit_user(){
     kin_name = $("#edit_kin_name").val();
     kin_relationship = $("#edit_kin_relationship").val();
     kin_phone = $("#edit_kin_phone").val();
+    interests = $("#edit_interests").val();
 
     var data = "fname="+fname+"&lname="+lname+"&known="+known+"&address="+address
 			+"&age="+age+"&gender="+gender+"&phone="+phone+"&email="+email
