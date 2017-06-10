@@ -7,8 +7,11 @@ import os
 from pymongo import MongoClient
 import json
 import datetime
+import tornado.websocket
 
 define("port", default=8000, help="run on the given port", type=int)
+
+websocket_clients = set()
 
 def get_spolunteer_data(o):
     user = dict(
@@ -43,9 +46,36 @@ class AuthTrackerHandler(tornado.web.RequestHandler):
                 self.self.write({'status':0, 'message': 'not in operation'})
         self.write({'status':0, 'message': 'not checked in'})
 
+class MapSocketHandler(tornado.websocket.WebSocketHandler):
+    def open(self):
+        websocket_clients.add(self)
+        col_1 = self.application.db['tracking']
+        col_2 = self.application.db['daily']
+        doc = col_1.find()
+        results = []
+        for item in response:
+            active = col_2.find({'email':item['email'],'stage': { '$ne' : 0 }})
+            if active:
+                results.append({
+                    'coordinates':[item['lat'],item['lon']],
+                    'email':item['email'],
+                    'armband':item['armband']
+                })
+        self.write_message({'results': results})
+        print("WebSocket opened")
+
+    def on_message(self, message):
+        pass
+        # self.write_message(u"You said: " + message)
+
+    def on_close(self):
+        websocket_clients.remove(self)
+        print("WebSocket closed")
+
 class GpsHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email','')
+        armband = self.get_argument('bandno','')
         lat = self.get_argument('lat','')
         lon = self.get_argument('lon','')
         col = self.application.db['tracking']
@@ -63,6 +93,12 @@ class GpsHandler(tornado.web.RequestHandler):
             doc = {'email': email, 'lat': lat, 'lon': lon}
             print doc
             col.insert(doc)
+        for ws_client in websocket_clients:
+            ws_client.write_message({
+                'coordinates':[lat,lon],
+                'email':email,
+                'armband':armband
+            })
         self.write({'status':1})
 
 class DangerHandler(tornado.web.RequestHandler):
@@ -224,6 +260,10 @@ class FinishPageHandler(tornado.web.RequestHandler):
     def get(self):
         self.render('finish_task.html')
 
+class RTTrackingHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('map.html')
+
 class TaskStatusHandler(tornado.web.RequestHandler):
     def post(self):
         email = self.get_argument('email', '')
@@ -327,6 +367,8 @@ class Application(tornado.web.Application):
             (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
              {"path": os.path.join(os.path.dirname(__file__), "frontend/bower_components")}),
              (r"/authtracker", AuthTrackerHandler),
+             (r"/map",MapSocketHandler),
+             (r"/rtmap",RTTrackingHandler),
             # (r"/demo", DemoHandler),
             # (r"/pattern(\w+)", PatternHandler),
             # (r"/files/(.*)", tornado.web.StaticFileHandler,
