@@ -30,7 +30,7 @@ function check_out(){
 	var data = "email="+email;
 	console.log(data);
 	$.ajax({
-	    url : "/checkin",
+	    url : "/checkout",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
