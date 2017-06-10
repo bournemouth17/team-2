@@ -57,9 +57,11 @@ class GpsHandler(tornado.web.RequestHandler):
         if doc:
             doc['lat'] = lat
             doc['lon'] = lon
+            print doc
             col.save(doc)
         else:
             doc = {'email': email, 'lat': lat, 'lon': lon}
+            print doc
             col.insert(doc)
         self.write({'status':1})
 
