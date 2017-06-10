@@ -93,9 +93,9 @@
                         <span class="menu_title">Reception</span>
                     </a>
                     <ul>
-                        <li><a href="forms_regular.html">Check In</a></li>
-                        <li><a href="forms_advanced.html">Check Out</a></li>
-                        <li><a href="forms_file_input.html">User Info</a></li>
+                        <li><a href="plugins_datatables.html">Check In</a></li>
+                        <li><a href="check_out.html">Check Out</a></li>
+                        <li class="active"><a href="user_info.html">User Info</a></li>
                     </ul>
                 </li>
                 <li>
@@ -144,9 +144,28 @@
         <div id="page_content_inner">
             <h3 class="heading_b uk-margin-bottom">User Information</h3>         
             <div class="md-card uk-margin-large-bottom">
+
                 <div class="md-card-content">
+
+                    <form class="uk-form-stacked" id="wizard_advanced_form">
+                        <div id="wizard_advanced" data-uk-observe>
+                            <section>
+                                <div class="uk-grid">
+                                    <div class="uk-width-medium-1-1 parsley-row">
+                                        <label for="wizard_fullname">Enter a Spolunteer's email<span class="req">*</span></label>
+                                        <input type="text" name="email" id="email" required class="md-input" />
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                        <div class="uk-margin-medium-top">
+                        <a class="md-btn md-btn-danger md-btn-block md-btn-large" href="plugins_datatables.html">Search</a>
+                        </div>
+                    </form>
+
                     <form action="" class="uk-form-stacked" id="user_edit_form">
-                <div class="uk-grid" data-uk-grid-margin>
+                <div class="uk-grid" style="display: none" data-uk-grid-margin>
                     <div class="uk-width-large-10-10">
                         <div class="md-card">
                             <div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
