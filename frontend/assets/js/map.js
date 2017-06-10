@@ -24,7 +24,7 @@ ws.onopen = function(){
         for (i=0; i< data_json['results'].length; i++){
               // console.log(data_json['results'][i]);
               var marker = L.marker(data_json['results'][i]['coordinates']).addTo(mymap);
-              marker.bindPopup("<strong>Name: </strong>"  + data_json['results'][i]['owner'] + " <br><strong>Telephone:</strong> "+data_json['results'][i]['phone']).openPopup();
+              marker.bindPopup("<br><strong>Telephone:</strong> "+data_json['results'][i]['phone']).openPopup();
         }
     }
     else{
