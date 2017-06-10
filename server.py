@@ -70,7 +70,7 @@ class SignUpHandler(tornado.web.RequestHandler):
             kin_phone = self.get_argument('kin_phone', ''),
             outdoor = self.get_argument('outdoor', ''),
             indoor = self.get_argument('indoor', ''),
-            interests = self.get_argument('indoor', ''),
+            interests = self.get_argument('interests', ''),
             date = datetime.datetime.now().strftime('%m/%d/%Y'),
         )
         print user
@@ -151,6 +151,13 @@ class EditUserHandler(tornado.web.RequestHandler):
 
         user = { k: self.get_argument(k) for k in self.request.arguments }
 
+class SearchBySkillHandler(tornado.web.RequestHandler):
+    def post(self):
+        col = self.application.db['spolunteer']
+        skill = self.get_argument('skill', '')
+        doc = col.find({"interests":{"$regex": skill}})
+        print doc
+        self.write({'status':1})
 
 # class DemoHandler(tornado.web.RequestHandler):
 #     def get(self):
