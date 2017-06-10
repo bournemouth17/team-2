@@ -90,7 +90,7 @@ function edit_user(){
     var data = "fname="+fname+"&lname="+lname+"&known="+known+"&address="+address
 			+"&age="+age+"&gender="+gender+"&phone="+phone+"&email="+email
 			+"&kin_name="+kin_name+"&kin_relationship="+kin_relationship+"&kin_phone="+kin_phone
-			+"&outdoor="+outdoor+"&indoor="+indoor+"&interests="+interests;
+			+"&interests="+interests;
 
 	console.log(data);
 
