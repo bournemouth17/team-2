@@ -182,21 +182,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
                 getResponse = response;
 
-                //Initialize GPS tracking
-                Intent gpsintent = new Intent(getApplicationContext(), GPSService.class);
-                startService(gpsintent);
-
-                //Store phone number in sharedpref session
-                SharedPreferences preftest = getSharedPreferences("MyPref", 1); // 0 - for private mode
-                SharedPreferences.Editor editortest = preftest.edit();
-                editortest.putString("email", myemail);
-                editortest.commit();
-
-                Intent hometest = new Intent(getBaseContext(), Track.class);
-                startActivity(hometest);
-
-                if(getResponse.equals("1")){
+                //if(getResponse.equals("1")){
                     try{
+                        //Initialize GPS tracking
+                        Intent gpsintent = new Intent(getApplicationContext(), GPSService.class);
+                        startService(gpsintent);
+
                         //Store phone number in sharedpref session
                         SharedPreferences pref = getSharedPreferences("MyPref", 1); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();
@@ -215,10 +206,10 @@ public class MainActivity extends AppCompatActivity {
                     catch(Exception r){
                         r.printStackTrace();
                     }
-                }
-                else{
-                    Toast.makeText(getBaseContext(), "Error verifying your details. Please try again.", Toast.LENGTH_LONG).show();
-                }
+                //}
+                //else{
+                //    Toast.makeText(getBaseContext(), "Error verifying your details. Please try again.", Toast.LENGTH_LONG).show();
+                //}
             }catch(Exception r){
                 r.printStackTrace();
             }
