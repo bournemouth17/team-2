@@ -80,12 +80,34 @@ function edit_user(){
     gender = $("#edit_gender").val();
     phone = $("#edit_phone").val();
     email = $("#edit_email").val();
-    kin_name = $("#kin_name").val();
-    kin_relation = $("#kin_relationship").val();
-    kin_phone = $("#kin_phone").val();
-    outdoor = $('input[name=outdoor]:checked').val();
-    indoor = $('input[name=indoor]:checked').val();
-    interests = $("#interests").val();
-    console.log("Val is: "+indoor);
+    kin_name = $("#edit_kin_name").val();
+    kin_relationship = $("#edit_kin_relationship").val();
+    kin_phone = $("#edit_kin_phone").val();
+
+    var data = "fname="+fname+"&lname="+lname+"&known="+known+"&address="+address
+			+"&age="+age+"&gender="+gender+"&phone="+phone+"&email="+email
+			+"&kin_name="+kin_name+"&kin_relationship="+kin_relationship+"&kin_phone="+kin_phone
+			+"&outdoor="+outdoor+"&indoor="+indoor+"&interests="+interests;
+
+	console.log(data);
+
+	$.ajax({
+	    url : "/forms_wizard",
+	    type: "PUT",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		alert("SUCCESS!");
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
 }
 
