@@ -51,7 +51,7 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
         websocket_clients.add(self)
         col_1 = self.application.db['tracking']
         col_2 = self.application.db['daily']
-        doc = col.find({'status':'danger'})
+        doc = col_1.find()
         results = []
         for item in response:
             active = col_2.find({'email':item['email'],'stage': { '$ne' : 0 }})
