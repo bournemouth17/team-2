@@ -44,12 +44,12 @@ function load_user(){
 
 	    		$("#user_edit_name").html(data['user'].fname+" "+data["user"].lname);
 	    		$("#user_edit_address").html(data['user'].address);
-	    		$("#edit_fname").html(data['user'].fname);
-	    		$("#edit_lname").html(data['user'].lname);
-	    		$("#edit_address").html(data['user'].address);
-	    		$("#edit_age").html(data['user'].age);
-	    		$("#edit_email").html(data['user'].email);
-	    		$("#edit_phone").html(data['user'].phone);
+	    		$("#edit_fname").val(data['user'].fname);
+	    		$("#edit_lname").val(data['user'].lname);
+	    		$("#edit_address").val(data['user'].address);
+	    		$("#edit_age").val(data['user'].age);
+	    		$("#edit_email").val(data['user'].email);
+	    		$("#edit_phone").val(data['user'].phone);
 
 	    		//Show the div now
 	    		$("#userinformation").show();
