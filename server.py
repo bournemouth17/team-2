@@ -61,6 +61,7 @@ class MapSocketHandler(tornado.websocket.WebSocketHandler):
             print res
             if active:
                 if not res:
+                    res = {}
                     res['phone'] = ''
                 results.append({
                     'coordinates':[item['lat'],item['lon']],
