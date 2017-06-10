@@ -18,7 +18,7 @@ ws.onopen = function(){
 
   ws.onmessage = function(event) {
     data_json = JSON.parse(event.data)
-    //console.log(data_json)
+    console.log(data_json)
     if(data_json.hasOwnProperty('results')){
         //console.log(data_json['results'].length);
         for (i=0; i< data_json['results'].length; i++){
