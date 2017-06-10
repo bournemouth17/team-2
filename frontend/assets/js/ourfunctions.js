@@ -44,12 +44,16 @@ function load_user(){
 
 	    		$("#user_edit_name").html(data['user'].fname+" "+data["user"].lname);
 	    		$("#user_edit_address").html(data['user'].address);
-	    		$("#edit_fname").parentElement.MaterialTextfield.change(data['user'].fname);
-	    		$("#edit_lname").parentElement.MaterialTextfield.change(data['user'].lname);
+	    		$("#edit_fname").val(data['user'].fname);
+	    		$("#edit_lname").val(data['user'].lname);
 	    		$("#edit_address").val(data['user'].address);
 	    		$("#edit_age").val(data['user'].age);
 	    		$("#edit_email").val(data['user'].email);
 	    		$("#edit_phone").val(data['user'].phone);
+	    		$("#edit_known").val(data['user'].known);
+	    		$("#edit_kin_name").val(data['user'].kin_name);
+	    		$("#edit_kin_relationship").val(data['user'].kin_relationship);
+	    		
 
 	    		//Show the div now
 	    		$("#userinformation").show();
@@ -67,5 +71,20 @@ function load_user(){
 }
 
 function edit_user(){
-
+	//Capture data
+    fname = $("#edit_fname").val();
+    lname = $("#edit_lname").val();
+    known = $("#edit_known").val();
+    address = $("#edit_address").val();
+    age = $("#edit_age").val();
+    gender = $("#edit_gender").val();
+    phone = $("#edit_phone").val();
+    email = $("#edit_email").val();
+    kin_name = $("#kin_name").val();
+    kin_relation = $("#kin_relationship").val();
+    kin_phone = $("#kin_phone").val();
+    outdoor = $('input[name=outdoor]:checked').val();
+    indoor = $('input[name=indoor]:checked').val();
+    interests = $("#interests").val();
+    console.log("Val is: "+indoor);
 }
