@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">
 
-    <title>TeamRubicon -- Spolunteer Interview</title>
+    <title>TeamRubicon -- Manage Spolunteers</title>
 
 
     <!-- uikit -->
@@ -142,7 +142,7 @@
 
     <div id="page_content">
         <div id="page_content_inner">
-            <h3 class="heading_b uk-margin-bottom">Guidance</h3>         
+            <h3 class="heading_b uk-margin-bottom">User Information</h3>         
             <div class="md-card uk-margin-large-bottom">
 
                 <div class="md-card-content">
@@ -159,7 +159,7 @@
                             </section>
                         </div>
                         <div class="uk-margin-medium-top">
-                        <a class="md-btn md-btn-danger md-btn-block md-btn-large" onclick="load_guidance()">Search</a>
+                        <a class="md-btn md-btn-danger md-btn-block md-btn-large" onclick="load_user()">Search</a>
                         </div>
                     </form>
 
@@ -168,7 +168,7 @@
 
                     <form action="" class="uk-form-stacked" id="user_edit_form">
                         <div id="userinformation" class="uk-grid" style="display: none" data-uk-grid-margin>
-                        <h4 class="heading_b uk-margin-bottom">Update user's status</h4>
+                        <h4 class="heading_b uk-margin-bottom">User Details</h4>
                         <div class="uk-width-large-10-10">
                             <div class="md-card">
                                 <div class="user_heading" data-uk-sticky="{ top: 48, media: 960 }">
@@ -193,9 +193,9 @@
                                     <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent">
                                         <i class="material-icons">&#xE8BE;</i>
                                         <div class="md-fab-toolbar-actions">
-                                            <a id="user_edit_save" onclick="edit_guidance()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons md-color-white">&#xE161;</i></a>
-                                            <button id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Print"><i class="material-icons md-color-white">&#xE555;</i></button>
-                                            <button id="user_edit_delete" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Delete"><i class="material-icons md-color-white">&#xE872;</i></button>
+                                            <a id="user_edit_save" onclick="edit_user()" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Save"><i class="material-icons md-color-white">&#xE161;</i></a>
+                                            <a id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Print"><i class="material-icons md-color-white">&#xE555;</i></a>
+                                            <a id="user_edit_delete" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Delete"><i class="material-icons md-color-white">&#xE872;</i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -211,71 +211,73 @@
                                             </h3>
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_fname">First name</p>
+                                                    <label>First name</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_fname" name="edit_fname" />
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_lname">Last name</p>
+                                                    <label>Last name</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_lname" name="edit_lname" />
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_known">Preferred name</p>
-                                                </div>
-                                            </div>
-                                            <div class="uk-grid" data-uk-grid-margin>
-                                                <div class="uk-width-medium-1-2">
-                                                    <p id="user_address">Address</p>
-                                                </div>
-                                                <div class="uk-width-medium-1-2">
-                                                    <p id="user_age">Age</p>
+                                                    <label>Preferred name</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_known" name="edit_known" />
                                                 </div>
                                             </div>
                                             <div class="uk-grid" data-uk-grid-margin>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_kin_name">Next of kin</p>
+                                                    <label>Address</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_address" name="edit_address" />
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_kin_relationship">Relationship with kin</p>
+                                                    <label>Age</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_age" name="edit_age" />
+                                                </div>
+                                                <div class="uk-width-medium-1-3 parsley-row">
+                                                    <select class="md-input" id="edit_gender" name="gender" required>
+                                                        <option value="">Gender</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="notosay">Prefer not to say</option>
+                                                            <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="uk-grid" data-uk-grid-margin>
+                                                <div class="uk-width-medium-1-3">
+                                                    <label>Next of kin</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_kin_name" name="edit_kin_name" />
                                                 </div>
                                                 <div class="uk-width-medium-1-3">
-                                                    <p id="user_kin_phone">Kin's phone</p>
+                                                    <label>Relationship with kin</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_kin_relationship" name="edit_kin_relationship" />
                                                 </div>
-                                                <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2" data-uk-grid-margin>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon material-icons">&#xE158;</i>
-                                                            </span>
-                                                            <p id="user_email">Email</p>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="uk-input-group">
-                                                            <span class="uk-input-group-addon">
-                                                                <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
-                                                            </span>
-                                                            <p id="user_phone">Phone Number</p>
-                                                        </div>
-                                                    </div>
+                                                <div class="uk-width-medium-1-3">
+                                                    <label>Kin's phone</label>
+                                                    <input class="md-input label-fixed" type="text" id="edit_kin_phone" name="edit_kin_phone" />
                                                 </div>
                                             </div>
                                             <h3 class="full_width_in_card heading_c">
-                                                Update info below
+                                                Contact info
                                             </h3>
                                             <div class="uk-grid">
                                                 <div class="uk-width-1-1">
                                                     <div class="uk-grid uk-grid-width-1-1 uk-grid-width-large-1-2" data-uk-grid-margin>
                                                         <div>
-                                                            <div>
-                                                                <label>Add comments</label>
-                                                                <textarea id="add_comments" name="add_comments" cols="30" rows="4" class="md-input autosize_init" style="overflow-x: hidden; word-wrap: break-word; height: 121px;"></textarea>
+                                                            <div class="uk-input-group">
+                                                                <span class="uk-input-group-addon">
+                                                                    <i class="md-list-addon-icon material-icons">&#xE158;</i>
+                                                                </span>
+                                                                <label>Email</label>
+                                                                <input type="text" class="md-input label-fixed" name="edit_email" id="edit_email" />
                                                             </div>
                                                         </div>
                                                         <div>
-                                                            <div>
-                                                                <select class="md-input" id="interests" name="preference[]" required>
-                                                                    <option value="">Update preferences</option>
-                                                                    <option value="ops">OPS</option>
-                                                                    <option value="vrc">VRC</option>
-                                                                </select>
+                                                            <div class="uk-input-group">
+                                                                <span class="uk-input-group-addon">
+                                                                    <i class="md-list-addon-icon material-icons">&#xE0CD;</i>
+                                                                </span>
+                                                                <label>Phone Number</label>
+                                                                <input type="text" class="md-input label-fixed" name="edit_phone" id="edit_phone" />
                                                             </div>
                                                         </div>
                                                     </div>
